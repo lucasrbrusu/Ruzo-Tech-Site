@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ruzo Tech | Request a Package</title>
+  <meta name="description" content="Request a website development package from Ruzo Tech." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-bar">
+      <a class="brand brand-link" href="index.html">
+        <img class="logo-img" src="assets/logo.png" alt="Ruzo Tech logo" />
+        <div class="logo-type">
+          <span class="logo-name">Ruzo Tech</span>
+          <span class="logo-tag">Web & App Studio</span>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="terms.html">Terms</a>
+        <a href="index.html#process">Process</a>
+        <a href="index.html#projects">Work</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn ghost small" href="services.html">View services</a>
+        <a class="btn primary small" href="index.html#contact">Book a call</a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="top">
+      <div class="container">
+        <a class="back-link btn primary small" href="services.html" aria-label="Back to services">
+          <span class="back-arrow">&larr;</span>
+          <span class="back-text">Back to services</span>
+        </a>
+        <div class="section-header">
+          <p class="eyebrow">Request</p>
+          <h1>Tell us what you need</h1>
+          <p class="section-sub">We’ll confirm scope and timeline based on your selection.</p>
+        </div>
+
+        <div class="request-wrap">
+          <div class="request-summary">
+            <p class="eyebrow">Selected package</p>
+            <div class="summary-item">
+              <span>Development type</span>
+              <span id="summary-type">Website</span>
+            </div>
+            <div class="summary-item">
+              <span>Package</span>
+              <span id="summary-package">Custom</span>
+            </div>
+            <p class="request-note">Adjust the details below and submit so we can contact you with next steps.</p>
+          </div>
+
+          <div class="request-form">
+            <form class="contact-form" action="https://formspree.io/f/mjgvwypo" method="POST">
+              <input type="hidden" id="field-type" name="type" />
+              <input type="hidden" id="field-package" name="package" />
+              <input type="hidden" id="field-subject" name="_subject" />
+              <label>
+                Description
+                <textarea id="field-description" name="description" placeholder="Describe what you’d like in your website" required></textarea>
+              </label>
+              <label>
+                Email
+                <input type="email" id="field-email" name="email" placeholder="you@example.com" required />
+              </label>
+              <label>
+                Phone
+                <input type="tel" id="field-phone" name="phone" placeholder="+44..." />
+              </label>
+              <button type="submit" class="btn primary full">Send request</button>
+              <p class="form-note">We respond within one business day.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand footer-brand brand-link" href="index.html">
+          <img class="logo-img" src="assets/logo.png" alt="Ruzo Tech logo" />
+          <div class="logo-type">
+            <span class="logo-name">Ruzo Tech</span>
+            <span class="logo-tag">Websites & Apps</span>
+          </div>
+        </a>
+        <p class="footer-copy">We design and ship digital products and build conversion-driven websites for clients.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <p class="footer-title">Explore</p>
+          <a href="services.html">Services</a>
+          <a href="terms.html">Terms of Service</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="index.html#process">Process</a>
+          <a href="index.html#projects">Work</a>
+        </div>
+        <div>
+          <p class="footer-title">Contact</p>
+          <a href="mailto:hello@ruzotech.com">Email</a>
+          <a href="index.html#contact">Book a call</a>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <p>Based worldwide. Working with founders and product teams.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const params = new URLSearchParams(window.location.search);
+      const type = params.get('type') || 'Website';
+      const pkg = params.get('package') || 'Custom';
+      const summaryType = document.getElementById('summary-type');
+      const summaryPackage = document.getElementById('summary-package');
+      const fieldType = document.getElementById('field-type');
+      const fieldPackage = document.getElementById('field-package');
+      const fieldSubject = document.getElementById('field-subject');
+      if (summaryType) summaryType.textContent = type;
+      if (summaryPackage) summaryPackage.textContent = pkg;
+      if (fieldType) fieldType.value = type;
+      if (fieldPackage) fieldPackage.value = pkg;
+      if (fieldSubject) fieldSubject.value = `Dev Request - ${type} - ${pkg}`;
+    })();
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -13,22 +13,23 @@
 <body>
   <header class="site-header">
     <div class="container nav-bar">
-      <div class="brand">
-        <div class="logo-mark">R</div>
+      <a class="brand brand-link" href="index.html">
+        <img class="logo-img" src="assets/logo.png" alt="Ruzo Tech logo" />
         <div class="logo-type">
           <span class="logo-name">Ruzo Tech</span>
           <span class="logo-tag">Web & App Studio</span>
         </div>
-      </div>
+      </a>
       <nav class="nav-links">
+        <a href="index.html">Home</a>
         <a href="services.html">Services</a>
         <a href="index.html#process">Process</a>
         <a href="index.html#projects">Work</a>
-        <a href="#contact">Contact</a>
+        <a href="index.html#contact">Contact</a>
       </nav>
       <div class="nav-actions">
         <a class="btn ghost small" href="index.html#projects">View work</a>
-        <a class="btn primary small" href="#contact">Book a call</a>
+        <a class="btn primary small" href="index.html#contact">Book a call</a>
       </div>
       <button class="nav-toggle" aria-label="Toggle navigation">
         <span></span>
@@ -39,76 +40,20 @@
   </header>
 
   <main>
-    <section class="hero service-hero" id="top">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow">Services & pricing</p>
-          <h1>Website builds with transparent packages.</h1>
-          <p class="lead">We build and operate our own digital products. For clients, we focus on fast, conversion-led website design and development with clear options.</p>
-          <div class="hero-actions">
-            <a class="btn primary" href="#contact">Book a call</a>
-            <a class="btn ghost" href="index.html#projects">See our work</a>
-          </div>
-        </div>
-        <div class="hero-visual">
-          <div class="glass-panel">
-            <div class="panel-header">
-              <div>
-                <p class="eyebrow">Packages at a glance</p>
-                <h3>Website tiers</h3>
-              </div>
-              <span class="pill success">Pick what fits</span>
-            </div>
-            <ul class="panel-list">
-              <li>
-                <div>
-                  <p class="list-title">Landing pages</p>
-                  <p class="list-sub">Starter, Basic, Advanced options</p>
-                </div>
-                <span class="badge">From £300</span>
-              </li>
-              <li>
-                <div>
-                  <p class="list-title">Brochure sites</p>
-                  <p class="list-sub">4–8 pages with analytics + SEO</p>
-                </div>
-                <span class="badge">From £800</span>
-              </li>
-              <li>
-                <div>
-                  <p class="list-title">Advanced business</p>
-                  <p class="list-sub">Integrations, CRO, performance work</p>
-                </div>
-                <span class="badge">From £4,000</span>
-              </li>
-            </ul>
-            <div class="panel-footer">
-              <div>
-                <p class="list-title">Need guidance?</p>
-                <p class="list-sub">We’ll recommend the right tier in your intake call.</p>
-              </div>
-              <a class="btn primary small" href="#contact">Start here</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
+    <section class="section" id="top">
       <div class="container">
         <div class="section-header">
-          <p class="eyebrow">One-time development</p>
-          <h2>Launch once with the right scope.</h2>
-          <p class="section-sub">Choose the package that fits your launch. All builds include responsive design, performance checks, and clean handoff.</p>
+          <p class="eyebrow">Services & pricing</p>
+          <h1>Website packages</h1>
+          <p class="section-sub">Choose a one-time build or ongoing services. All packages are listed in GBP.</p>
         </div>
 
         <div class="package-group">
           <div class="package-group-head">
             <div>
               <p class="eyebrow">Landing page</p>
-              <h3>Designed to convert</h3>
+              <h3>Conversion-focused pages</h3>
             </div>
-            <p class="meta-text">Focused pages with analytics and CRO-ready structure.</p>
           </div>
           <div class="package-grid">
             <article class="package-card">
@@ -116,21 +61,42 @@
                 <span class="pill light">Starter</span>
                 <span class="price">£300</span>
               </div>
-              <p class="package-desc">Templated design plus branding setup.</p>
+              <ul class="package-points">
+                <li>Templated design aligned to your brand</li>
+                <li>Branding setup for colors, logo, and fonts</li>
+                <li>Fast, responsive implementation</li>
+              </ul>
+              <div class="package-actions">
+                <a class="btn primary small" href="request.html?type=Landing%20page&package=Starter">Request this</a>
+              </div>
             </article>
             <article class="package-card">
               <div class="package-top">
                 <span class="pill light">Basic</span>
                 <span class="price">£500</span>
               </div>
-              <p class="package-desc">Custom design and layout with analytics included.</p>
+              <ul class="package-points">
+                <li>Custom design and layout</li>
+                <li>Analytics setup included</li>
+                <li>Performance-focused responsive build</li>
+              </ul>
+              <div class="package-actions">
+                <a class="btn primary small" href="request.html?type=Landing%20page&package=Basic">Request this</a>
+              </div>
             </article>
             <article class="package-card">
               <div class="package-top">
                 <span class="pill light">Advanced</span>
                 <span class="price">£600</span>
               </div>
-              <p class="package-desc">Everything above plus CRO structure and tracking events.</p>
+              <ul class="package-points">
+                <li>CRO-friendly structure with tracking events</li>
+                <li>Custom design and layout</li>
+                <li>Analytics and performance baked in</li>
+              </ul>
+              <div class="package-actions">
+                <a class="btn primary small" href="request.html?type=Landing%20page&package=Advanced">Request this</a>
+              </div>
             </article>
           </div>
         </div>
@@ -139,7 +105,7 @@
           <div class="package-group-head">
             <div>
               <p class="eyebrow">Brochure site (up to 8 pages)</p>
-              <h3>Multi-page sites</h3>
+              <h3>Multi-page websites</h3>
             </div>
             <p class="meta-text">Add-on: £250 per extra page.</p>
           </div>
@@ -149,21 +115,42 @@
                 <span class="pill light">Starter</span>
                 <span class="price">£800</span>
               </div>
-              <p class="package-desc">Up to 4 pages, templated design and branding.</p>
+              <ul class="package-points">
+                <li>Up to 4 pages with templated design</li>
+                <li>Branding applied across pages</li>
+                <li>Mobile-responsive build</li>
+              </ul>
+              <div class="package-actions">
+                <a class="btn primary small" href="request.html?type=Brochure%20site&package=Starter">Request this</a>
+              </div>
             </article>
             <article class="package-card">
               <div class="package-top">
                 <span class="pill light">Advanced</span>
                 <span class="price">£1,200</span>
               </div>
-              <p class="package-desc">Up to 6 pages, custom bespoke design with integrated analytics.</p>
+              <ul class="package-points">
+                <li>Up to 6 pages with custom bespoke design</li>
+                <li>Integrated analytics</li>
+                <li>SEO-friendly structure</li>
+              </ul>
+              <div class="package-actions">
+                <a class="btn primary small" href="request.html?type=Brochure%20site&package=Advanced">Request this</a>
+              </div>
             </article>
             <article class="package-card">
               <div class="package-top">
                 <span class="pill light">Pro</span>
                 <span class="price">£3,000</span>
               </div>
-              <p class="package-desc">Up to 8 pages with integrations, structured SEO and CRO.</p>
+              <ul class="package-points">
+                <li>Up to 8 pages with integrations</li>
+                <li>Structured SEO and CRO</li>
+                <li>Performance-focused delivery</li>
+              </ul>
+              <div class="package-actions">
+                <a class="btn primary small" href="request.html?type=Brochure%20site&package=Pro">Request this</a>
+              </div>
             </article>
           </div>
         </div>
@@ -182,21 +169,42 @@
                 <span class="pill light">Starter</span>
                 <span class="price">£4,000</span>
               </div>
-              <p class="package-desc">Custom website up to 15 pages, mobile compatible, basic integrations, SEO foundations, analytics, deployment, handover.</p>
+              <ul class="package-points">
+                <li>Up to 15 pages with multiple templates</li>
+                <li>Mobile compatible with basic integrations</li>
+                <li>SEO foundations, analytics, deployment, handover</li>
+              </ul>
+              <div class="package-actions">
+                <a class="btn primary small" href="request.html?type=Advanced%20business%20site&package=Starter">Request this</a>
+              </div>
             </article>
             <article class="package-card">
               <div class="package-top">
                 <span class="pill light">Advanced</span>
                 <span class="price">£6,000</span>
               </div>
-              <p class="package-desc">Up to 25 pages, professional CRO structure, advanced SEO, CTA system, advanced integrations, guaranteed high performance.</p>
+              <ul class="package-points">
+                <li>Up to 25 pages with CTA system</li>
+                <li>Professional CRO and advanced SEO</li>
+                <li>Advanced integrations and high performance</li>
+              </ul>
+              <div class="package-actions">
+                <a class="btn primary small" href="request.html?type=Advanced%20business%20site&package=Advanced">Request this</a>
+              </div>
             </article>
             <article class="package-card">
               <div class="package-top">
                 <span class="pill light">Enterprise</span>
                 <span class="price">From £10,000</span>
               </div>
-              <p class="package-desc">40+ pages, custom in-site widgets, advanced animation, consistent performance branding, advanced CRO, heavier integrations/automations, admin editing & content workflows, advanced SEO strategies, engineering polish, automated deployment, 3-month Ultimate Growth.</p>
+              <ul class="package-points">
+                <li>40+ pages with custom widgets and animation</li>
+                <li>Advanced CRO and heavier integrations/automations</li>
+                <li>Admin editing, workflows, SEO strategies, engineering polish, automated deployment, 3-month Ultimate Growth</li>
+              </ul>
+              <div class="package-actions">
+                <a class="btn primary small" href="request.html?type=Advanced%20business%20site&package=Enterprise">Request this</a>
+              </div>
             </article>
           </div>
         </div>
@@ -207,49 +215,61 @@
       <div class="container">
         <div class="section-header">
           <p class="eyebrow">Monthly development packages</p>
-          <h2>Ongoing service with hosting and domain handled.</h2>
-          <p class="section-sub">We store your site data and include domain and hosting services. If you stop service, hosting ends and domain data is locked, but we preserve your site data. Handover is available per the policy below.</p>
+          <h2>Ongoing service with hosting and domain handled</h2>
         </div>
 
         <div class="policy-box">
           <p>We manage domain handling and hosting maintenance. If you choose not to continue service, we preserve your site data; hosting ends and domain data is locked. You can request a handover of the site assets (code + in-project files). If monthly payments stop before reaching the cost of the one-time Brochure package, the remaining difference is due. If monthly payments exceed that cost, handover is free. Handover does not include databases or hosting environments; database connections and hosting are disabled unless you continue those features.</p>
-          <p>If you have database or saved data, you will receive a copy of all project data (including customer/user data within legal reason) upon handover. Expect 2–4 weeks for initial website development; if complications impact the timeline, we will contact you directly.</p>
+          <p>If you have database or saved data, you will receive a copy of all project data (including customer/user data within legal reason) upon handover. Expect 2-4 weeks for initial website development; if complications impact the timeline, we will contact you directly.</p>
         </div>
 
         <div class="package-grid">
           <article class="package-card">
             <div class="package-top">
               <span class="pill light">Basic</span>
-              <span class="price">£49.99/mo</span>
+              <span class="price">£79/mo</span>
             </div>
-            <p class="package-desc">Starter brochure package and Basic Care package.</p>
-            <ul class="package-list">
+            <ul class="package-points">
+              <li>Starter brochure package included</li>
+              <li>Basic Care package included</li>
               <li>+ £29.99/mo to upgrade to CarePlus</li>
               <li>+ £4.99/mo for Super Starter DB</li>
               <li>+ £24.99/mo for Database Standard</li>
             </ul>
+            <div class="package-actions">
+              <a class="btn primary small" href="request.html?type=Monthly%20development&package=Basic">Request this</a>
+            </div>
           </article>
           <article class="package-card">
             <div class="package-top">
               <span class="pill light">Advanced</span>
-              <span class="price">£99/mo</span>
+              <span class="price">£129/mo</span>
             </div>
-            <p class="package-desc">Advanced brochure package, Basic Care, and Super Starter DB.</p>
-            <ul class="package-list">
+            <ul class="package-points">
+              <li>Advanced brochure package included</li>
+              <li>Basic Care package included</li>
+              <li>Super Starter DB included</li>
               <li>+ £14.99/mo to upgrade to CarePlus</li>
               <li>+ £24.99/mo for Database Standard</li>
             </ul>
+            <div class="package-actions">
+              <a class="btn primary small" href="request.html?type=Monthly%20development&package=Advanced">Request this</a>
+            </div>
           </article>
           <article class="package-card">
             <div class="package-top">
               <span class="pill light">Pro</span>
               <span class="price">£199/mo</span>
             </div>
-            <p class="package-desc">Pro brochure package and CarePlus package.</p>
-            <ul class="package-list">
+            <ul class="package-points">
+              <li>Pro brochure package included</li>
+              <li>CarePlus package included</li>
               <li>+ £24.99/mo for Database Standard</li>
               <li>+ £99/mo to upgrade to Ultimate Growth</li>
             </ul>
+            <div class="package-actions">
+              <a class="btn primary small" href="request.html?type=Monthly%20development&package=Pro">Request this</a>
+            </div>
           </article>
         </div>
       </div>
@@ -259,36 +279,56 @@
       <div class="container">
         <div class="section-header">
           <p class="eyebrow">Maintenance</p>
-          <h2>Care packages to keep your site sharp.</h2>
+          <h2>Care packages to keep your site sharp</h2>
+          <p class="section-sub">Only available when bundled with a development package.</p>
         </div>
         <div class="package-grid">
           <article class="package-card">
             <div class="package-top">
               <span class="pill light">Basic Care</span>
-              <span class="price">£99/mo</span>
+              <span class="price">£49/mo</span>
             </div>
-            <p class="package-desc">Hosting and domain oversight, uptime checks, backups, bug fixes, basic performance checks, up to 72hr support response.</p>
+            <ul class="package-points">
+              <li>Hosting and domain oversight with uptime checks</li>
+              <li>Backups and bug fixes</li>
+              <li>Basic performance checks</li>
+              <li>Up to 72hr support response</li>
+            </ul>
           </article>
           <article class="package-card">
             <div class="package-top">
               <span class="pill light">CarePlus</span>
-              <span class="price">£149/mo</span>
+              <span class="price">£99/mo</span>
             </div>
-            <p class="package-desc">Everything in Basic Care plus light edits every month, priority support, and regular advanced performance checks.</p>
+            <ul class="package-points">
+              <li>Everything in Basic Care</li>
+              <li>Light edits every month</li>
+              <li>Priority support</li>
+              <li>Regular advanced performance checks</li>
+            </ul>
           </article>
           <article class="package-card">
             <div class="package-top">
               <span class="pill light">Ultimate Growth</span>
-              <span class="price">£299/mo</span>
+              <span class="price">£149/mo</span>
             </div>
-            <p class="package-desc">Everything above plus up to 6 hours/month for advanced improvements and edits, advanced monthly SEO analysis and improvements, complete website oversight and performance checks.</p>
+            <ul class="package-points">
+              <li>Everything in CarePlus</li>
+              <li>Up to 6 hours/month for advanced improvements and edits</li>
+              <li>Advanced monthly SEO analysis and improvements</li>
+              <li>Complete website oversight and performance checks</li>
+            </ul>
           </article>
           <article class="package-card">
             <div class="package-top">
               <span class="pill light">Unlimited Care</span>
-              <span class="price">£1,000/mo</span>
+              <span class="price">£299/mo</span>
             </div>
-            <p class="package-desc">Everything above plus unlimited website maintenance and editing, unlimited performance analysis and SEO optimisation.</p>
+            <ul class="package-points">
+              <li>Everything in Ultimate Growth</li>
+              <li>Unlimited website maintenance and editing</li>
+              <li>Unlimited performance analysis and SEO optimisation</li>
+            </ul>
           </article>
         </div>
       </div>
@@ -298,7 +338,7 @@
       <div class="container">
         <div class="section-header">
           <p class="eyebrow">Database integration</p>
-          <h2>Available only with a website build.</h2>
+          <h2>Available only with a website build</h2>
           <p class="section-sub">Database options are add-ons to development packages; not sold separately.</p>
         </div>
         <div class="package-grid">
@@ -307,67 +347,23 @@
               <span class="pill light">Super Starter</span>
               <span class="price">£4.99/mo</span>
             </div>
-            <p class="package-desc">Up to 10,000 monthly active users, 5GB egress, 1GB storage, 500MB database size.</p>
+            <ul class="package-points">
+              <li>Up to 10,000 monthly active users</li>
+              <li>5GB egress, 1GB storage</li>
+              <li>500MB database size</li>
+            </ul>
           </article>
           <article class="package-card">
             <div class="package-top">
               <span class="pill light">Database Standard</span>
               <span class="price">£34.99/mo</span>
             </div>
-            <p class="package-desc">Up to 50,000 monthly active users, 250GB egress, 100GB database storage, 8GB database disk size, daily backups for up to 7 days.</p>
+            <ul class="package-points">
+              <li>Up to 50,000 monthly active users</li>
+              <li>250GB egress, 100GB storage</li>
+              <li>8GB database disk, daily backups up to 7 days</li>
+            </ul>
           </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="section cta">
-      <div class="container cta-content">
-        <div>
-          <p class="eyebrow on-dark">Contact</p>
-          <h2>Ready to pick a package?</h2>
-          <p class="cta-sub">Share your goals and we’ll confirm scope, timeline, and the right tier.</p>
-          <div class="cta-actions">
-            <a class="btn on-dark" href="mailto:hello@ruzotech.com">hello@ruzotech.com</a>
-            <a class="btn ghost on-dark" href="index.html#top">Back to home</a>
-          </div>
-          <div class="cta-meta">
-            <div><strong>Availability:</strong> New projects open this month</div>
-            <div><strong>Timeline:</strong> 2–4 weeks typical for initial build</div>
-          </div>
-        </div>
-        <div class="cta-card">
-          <h3>Project snapshot</h3>
-          <form class="contact-form">
-            <label>
-              Project type
-              <select name="type">
-                <option>New website design + build</option>
-                <option>Website refresh</option>
-                <option>Landing page sprint</option>
-                <option>Website care &amp; growth</option>
-              </select>
-            </label>
-            <label>
-              Package interest
-              <select name="package">
-                <option>Landing page</option>
-                <option>Brochure site</option>
-                <option>Advanced business site</option>
-                <option>Monthly development</option>
-                <option>Care package</option>
-              </select>
-            </label>
-            <label>
-              Timeline
-              <select name="timeline">
-                <option>2-4 weeks</option>
-                <option>4-8 weeks</option>
-                <option>Flexible</option>
-              </select>
-            </label>
-            <button type="button" class="btn primary full">Start the conversation</button>
-            <p class="form-note">No spam. We respond within one business day.</p>
-          </form>
         </div>
       </div>
     </section>
@@ -376,26 +372,28 @@
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
-        <div class="brand footer-brand">
-          <div class="logo-mark">R</div>
+        <a class="brand footer-brand brand-link" href="index.html">
+          <img class="logo-img" src="assets/logo.png" alt="Ruzo Tech logo" />
           <div class="logo-type">
             <span class="logo-name">Ruzo Tech</span>
             <span class="logo-tag">Websites & Apps</span>
           </div>
-        </div>
+        </a>
         <p class="footer-copy">We design and ship digital products and build conversion-driven websites for clients.</p>
       </div>
       <div class="footer-links">
         <div>
           <p class="footer-title">Explore</p>
           <a href="services.html">Services</a>
+          <a href="terms.html">Terms of Service</a>
+          <a href="privacy.html">Privacy Policy</a>
           <a href="index.html#process">Process</a>
           <a href="index.html#projects">Work</a>
         </div>
         <div>
           <p class="footer-title">Contact</p>
           <a href="mailto:hello@ruzotech.com">Email</a>
-          <a href="#contact">Book a call</a>
+          <a href="index.html#contact">Book a call</a>
         </div>
       </div>
       <div class="footer-meta">

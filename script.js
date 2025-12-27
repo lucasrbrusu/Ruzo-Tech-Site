@@ -35,3 +35,8 @@ anchorLinks.forEach((link) => {
     target.scrollIntoView({ behavior: 'smooth' });
   });
 });
+
+// Redirect old in-page services anchors to the dedicated page
+if (window.location.hash === '#services' && !window.location.pathname.includes('services.html')) {
+  window.location.href = 'services.html';
+}
