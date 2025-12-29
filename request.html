@@ -70,8 +70,15 @@
           <div class="request-form">
             <form class="contact-form" action="https://formspree.io/f/mjgvwypo" method="POST">
               <input type="hidden" id="field-type" name="type" />
-              <input type="hidden" id="field-package" name="package" />
               <input type="hidden" id="field-subject" name="_subject" />
+              <label>
+                Development type
+                <input type="text" id="field-type-display" readonly />
+              </label>
+              <label>
+                Package
+                <select id="field-package-select" name="package" required></select>
+              </label>
               <label>
                 Description
                 <textarea id="field-description" name="description" placeholder="Describe what you’d like in your website" required></textarea>
@@ -83,6 +90,10 @@
               <label>
                 Phone
                 <input type="tel" id="field-phone" name="phone" placeholder="+44..." />
+              </label>
+              <label>
+                <input type="checkbox" name="terms_agree" required />
+                <span>I agree to the <a href="terms.html" target="_blank" rel="noopener">Terms of Service</a></span>
               </label>
               <button type="submit" class="btn primary full">Send request</button>
               <p class="form-note">We respond within one business day.</p>
@@ -130,17 +141,64 @@
     (() => {
       const params = new URLSearchParams(window.location.search);
       const type = params.get('type') || 'Website';
-      const pkg = params.get('package') || 'Custom';
+      const pkgFromQuery = params.get('package');
       const summaryType = document.getElementById('summary-type');
       const summaryPackage = document.getElementById('summary-package');
       const fieldType = document.getElementById('field-type');
-      const fieldPackage = document.getElementById('field-package');
+      const fieldTypeDisplay = document.getElementById('field-type-display');
+      const packageSelect = document.getElementById('field-package-select');
       const fieldSubject = document.getElementById('field-subject');
+
+      const brochurePackages = ['Starter', 'Advanced', 'Pro'];
+      const monthlyPackages = ['Basic', 'Advanced', 'Pro'];
+
+      const packageOptions = {
+        'Landing page': ['Basic', 'Advanced'],
+        'Brochure site (up to 8 pages)': brochurePackages,
+        'Brochure site': brochurePackages,
+        'Advanced business site': ['Starter', 'Advanced', 'Enterprise'],
+        'Monthly development packages': monthlyPackages,
+        'Monthly development': monthlyPackages,
+        Maintenance: ['Basic Care', 'CarePlus', 'Ultimate Growth', 'Unlimited Care'],
+        'Database integration': ['Super Starter', 'Database Standard'],
+        Website: ['Custom'],
+      };
+
+      const availablePackages = packageOptions[type] || packageOptions.Website;
+      const defaultPackage =
+        pkgFromQuery && availablePackages.includes(pkgFromQuery)
+          ? pkgFromQuery
+          : availablePackages[0];
+
+      const getSelectedPackage = () =>
+        packageSelect && packageSelect.value ? packageSelect.value : defaultPackage;
+
+      const updateSubject = () => {
+        if (fieldSubject) {
+          fieldSubject.value = `Dev Request - ${type} - ${getSelectedPackage()}`;
+        }
+      };
+
+      if (packageSelect) {
+        availablePackages.forEach((option) => {
+          const opt = document.createElement('option');
+          opt.value = option;
+          opt.textContent = option;
+          packageSelect.appendChild(opt);
+        });
+        packageSelect.value = defaultPackage;
+        packageSelect.addEventListener('change', () => {
+          if (summaryPackage) summaryPackage.textContent = getSelectedPackage();
+          updateSubject();
+        });
+      }
+
       if (summaryType) summaryType.textContent = type;
-      if (summaryPackage) summaryPackage.textContent = pkg;
+      if (summaryPackage) summaryPackage.textContent = getSelectedPackage();
       if (fieldType) fieldType.value = type;
-      if (fieldPackage) fieldPackage.value = pkg;
-      if (fieldSubject) fieldSubject.value = `Dev Request - ${type} - ${pkg}`;
+      if (fieldTypeDisplay) fieldTypeDisplay.value = type;
+
+      updateSubject();
     })();
   </script>
   <script src="script.js"></script>
