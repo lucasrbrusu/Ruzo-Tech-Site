@@ -569,6 +569,25 @@ img {
   color: var(--ink);
 }
 
+.terms-check {
+  display: flex;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.terms-check input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+.terms-link {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
 .contact-form select {
   padding: 12px;
   border-radius: 12px;
