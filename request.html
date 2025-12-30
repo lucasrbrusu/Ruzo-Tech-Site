@@ -22,10 +22,10 @@
       </a>
       <nav class="nav-links">
         <a href="index.html">Home</a>
-        <a href="services.html">Services</a>
+        <a href="services.html">Pricing</a>
         <a href="terms.html">Terms</a>
         <a href="index.html#process">Process</a>
-        <a href="index.html#projects">Work</a>
+        <a href="index.html#projects">Other Services</a>
         <a href="index.html#contact">Contact</a>
       </nav>
       <div class="nav-actions">
@@ -69,11 +69,10 @@
 
           <div class="request-form">
             <form class="contact-form" action="https://formspree.io/f/mjgvwypo" method="POST">
-              <input type="hidden" id="field-type" name="type" />
               <input type="hidden" id="field-subject" name="_subject" />
               <label>
                 Development type
-                <input type="text" id="field-type-display" readonly />
+                <select id="field-type-select" name="type" required></select>
               </label>
               <label>
                 Package
@@ -140,12 +139,11 @@
   <script>
     (() => {
       const params = new URLSearchParams(window.location.search);
-      const type = params.get('type') || 'Website';
+      const typeFromQuery = params.get('type') || 'Website';
       const pkgFromQuery = params.get('package');
       const summaryType = document.getElementById('summary-type');
       const summaryPackage = document.getElementById('summary-package');
-      const fieldType = document.getElementById('field-type');
-      const fieldTypeDisplay = document.getElementById('field-type-display');
+      const typeSelect = document.getElementById('field-type-select');
       const packageSelect = document.getElementById('field-package-select');
       const fieldSubject = document.getElementById('field-subject');
 
@@ -153,10 +151,9 @@
       const monthlyPackages = ['Basic', 'Advanced', 'Pro'];
 
       const packageOptions = {
-        'Landing page': ['Basic', 'Advanced'],
-        'Brochure site (up to 8 pages)': brochurePackages,
-        'Brochure site': brochurePackages,
-        'Advanced business site': ['Starter', 'Advanced', 'Enterprise'],
+        'Promotion page': ['Basic', 'Advanced'],
+        'Business site': brochurePackages,
+        'Complex Enterprise Site': ['Basic Enterprise', 'Advanced Enterprise', 'Super Enterprise'],
         'Monthly development packages': monthlyPackages,
         'Monthly development': monthlyPackages,
         Maintenance: ['Basic Care', 'CarePlus', 'Ultimate Growth', 'Unlimited Care'],
@@ -164,41 +161,83 @@
         Website: ['Custom'],
       };
 
-      const availablePackages = packageOptions[type] || packageOptions.Website;
-      const defaultPackage =
-        pkgFromQuery && availablePackages.includes(pkgFromQuery)
-          ? pkgFromQuery
-          : availablePackages[0];
-
-      const getSelectedPackage = () =>
-        packageSelect && packageSelect.value ? packageSelect.value : defaultPackage;
-
-      const updateSubject = () => {
-        if (fieldSubject) {
-          fieldSubject.value = `Dev Request - ${type} - ${getSelectedPackage()}`;
-        }
+      const typeAliases = {
+        'Landing page': 'Promotion page',
+        'Brochure site (up to 8 pages)': 'Business site',
+        'Brochure site': 'Business site',
+        'Business site (up to 8 pages)': 'Business site',
+        'Advanced business site': 'Complex Enterprise Site',
       };
 
-      if (packageSelect) {
-        availablePackages.forEach((option) => {
+      const normalizedType = typeAliases[typeFromQuery] || typeFromQuery;
+      const typeOptions = Object.keys(packageOptions);
+      let selectedType = packageOptions[normalizedType] ? normalizedType : 'Website';
+
+      const getAvailablePackages = (type) => packageOptions[type] || packageOptions.Website;
+
+      const setSubject = (pkg) => {
+        if (fieldSubject) fieldSubject.value = `Dev Request - ${selectedType} - ${pkg}`;
+      };
+
+      const setSummary = (pkg) => {
+        if (summaryType) summaryType.textContent = selectedType;
+        if (summaryPackage) summaryPackage.textContent = pkg;
+      };
+
+      const populatePackageSelect = (preferredPackage) => {
+        const packages = getAvailablePackages(selectedType);
+        if (!packageSelect) return packages[0];
+
+        packageSelect.innerHTML = '';
+        packages.forEach((option) => {
           const opt = document.createElement('option');
           opt.value = option;
           opt.textContent = option;
           packageSelect.appendChild(opt);
         });
-        packageSelect.value = defaultPackage;
-        packageSelect.addEventListener('change', () => {
-          if (summaryPackage) summaryPackage.textContent = getSelectedPackage();
-          updateSubject();
+
+        const selectedPackage =
+          preferredPackage && packages.includes(preferredPackage)
+            ? preferredPackage
+            : packages[0];
+
+        packageSelect.value = selectedPackage;
+        return selectedPackage;
+      };
+
+      if (typeSelect) {
+        typeOptions.forEach((option) => {
+          const opt = document.createElement('option');
+          opt.value = option;
+          opt.textContent = option;
+          typeSelect.appendChild(opt);
+        });
+        typeSelect.value = selectedType;
+
+        typeSelect.addEventListener('change', () => {
+          selectedType = typeSelect.value;
+          const selectedPackage = populatePackageSelect(packageSelect ? packageSelect.value : undefined);
+          setSummary(selectedPackage);
+          setSubject(selectedPackage);
         });
       }
 
-      if (summaryType) summaryType.textContent = type;
-      if (summaryPackage) summaryPackage.textContent = getSelectedPackage();
-      if (fieldType) fieldType.value = type;
-      if (fieldTypeDisplay) fieldTypeDisplay.value = type;
+      const initialPackage = populatePackageSelect(
+        pkgFromQuery && getAvailablePackages(selectedType).includes(pkgFromQuery)
+          ? pkgFromQuery
+          : undefined
+      );
 
-      updateSubject();
+      if (packageSelect) {
+        packageSelect.addEventListener('change', () => {
+          const currentPackage = packageSelect.value;
+          setSummary(currentPackage);
+          setSubject(currentPackage);
+        });
+      }
+
+      setSummary(initialPackage);
+      setSubject(initialPackage);
     })();
   </script>
   <script src="script.js"></script>
