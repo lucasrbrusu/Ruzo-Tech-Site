@@ -831,6 +831,25 @@ img {
   font-size: 18px;
 }
 
+@media (max-width: 1024px) {
+  .request-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .request-form,
+  .request-summary {
+    width: 100%;
+  }
+
+  .request-form {
+    order: 1;
+  }
+
+  .request-summary {
+    order: 2;
+  }
+}
+
 @media (max-width: 1080px) {
   .hero-grid {
     grid-template-columns: 1fr;
@@ -920,5 +939,16 @@ img {
 
   .nav-links {
     top: 64px;
+  }
+
+  .request-form,
+  .request-summary {
+    padding: 16px;
+  }
+
+  .summary-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
   }
 }
