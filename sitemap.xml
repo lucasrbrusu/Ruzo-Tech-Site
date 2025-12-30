@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://ruzotech.com/</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://ruzotech.com/services.html</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://ruzotech.com/request.html</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://ruzotech.com/terms.html</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ruzotech.com/privacy.html</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ruzotech.com/cookies.html</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+</urlset>
