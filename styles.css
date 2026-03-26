@@ -770,31 +770,28 @@ img {
   min-height: var(--services-card-height);
   height: 100%;
   border-radius: 24px;
-  border: 1px solid rgba(var(--tone-accent-rgb), 0.18);
-  background: linear-gradient(180deg, rgba(var(--tone-accent-rgb), 0.18) 0%, rgba(8, 14, 27, 0.96) 18%, #0b1220 100%);
-  box-shadow: 0 24px 60px rgba(9, 17, 30, 0.18);
-  color: #eef4ff;
+  border: 1px solid var(--border);
+  background: #fff;
+  box-shadow: 0 14px 36px rgba(15, 107, 255, 0.08);
+  color: var(--ink);
 }
 
 .services-page .package-card.pricing-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at top right, rgba(var(--tone-accent-rgb), 0.28), transparent 45%);
-  pointer-events: none;
+  content: none;
 }
 
 .services-page .package-card.pricing-card.is-featured {
-  border-color: rgba(var(--tone-accent-rgb), 0.28);
-  box-shadow: 0 30px 72px rgba(var(--tone-accent-rgb), 0.12), 0 18px 40px rgba(9, 17, 30, 0.22);
+  border-color: rgba(15, 107, 255, 0.22);
+  box-shadow: 0 18px 42px rgba(15, 107, 255, 0.12);
 }
 
 .services-page .pricing-banner {
   position: relative;
   z-index: 1;
   padding: 12px 20px;
-  background: var(--tone-accent);
-  color: var(--tone-button-text);
+  background: rgba(var(--tone-accent-rgb), 0.18);
+  color: var(--primary-strong);
+  border-bottom: 1px solid rgba(15, 107, 255, 0.12);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -823,7 +820,7 @@ img {
   font-size: 12px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(232, 240, 255, 0.62);
+  color: var(--primary);
 }
 
 .services-page .pricing-title-row {
@@ -834,7 +831,7 @@ img {
 }
 
 .services-page .pricing-card h4 {
-  color: #fff;
+  color: var(--ink);
   font-size: 27px;
 }
 
@@ -844,15 +841,15 @@ img {
   justify-content: center;
   padding: 5px 9px;
   border-radius: 999px;
-  border: 1px solid rgba(var(--tone-accent-rgb), 0.34);
-  background: rgba(var(--tone-accent-rgb), 0.16);
-  color: var(--tone-accent);
+  border: 1px solid rgba(15, 107, 255, 0.14);
+  background: rgba(var(--tone-accent-rgb), 0.22);
+  color: var(--primary-strong);
   font-size: 11px;
   font-weight: 700;
 }
 
 .services-page .pricing-subtitle {
-  color: rgba(233, 241, 255, 0.76);
+  color: var(--muted);
   font-size: 14px;
   line-height: 1.45;
   max-width: 32ch;
@@ -863,17 +860,17 @@ img {
   margin-top: auto;
   padding: 16px 16px 0;
   border-radius: 20px 20px 0 0;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(15, 107, 255, 0.12);
   border-bottom: 0;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  background: rgba(var(--tone-accent-rgb), 0.1);
+  box-shadow: none;
 }
 
 .services-page .price-label {
   font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(232, 240, 255, 0.62);
+  color: var(--muted);
   margin-bottom: 7px;
 }
 
@@ -894,46 +891,46 @@ img {
 .services-page .price-quote {
   font-size: 15px;
   font-weight: 600;
-  color: rgba(233, 241, 255, 0.76);
+  color: var(--muted);
 }
 
 .services-page .price-quote-strong {
   font-size: clamp(1.7rem, 3vw, 2.3rem);
   font-weight: 700;
   letter-spacing: -0.03em;
-  color: #fff;
+  color: var(--ink);
 }
 
 .services-page .price-prefix {
   font-size: 13px;
   font-weight: 700;
-  color: rgba(233, 241, 255, 0.76);
+  color: var(--muted);
   padding-bottom: 9px;
 }
 
 .services-page .price-currency {
   font-size: 28px;
   font-weight: 700;
-  color: var(--tone-accent);
+  color: var(--primary);
 }
 
 .services-page .price-amount {
   font-size: clamp(2.2rem, 4vw, 3.1rem);
   font-weight: 700;
   letter-spacing: -0.04em;
-  color: #fff;
+  color: var(--ink);
 }
 
 .services-page .price-period {
   font-size: 15px;
   font-weight: 600;
-  color: rgba(233, 241, 255, 0.76);
+  color: var(--muted);
   padding-bottom: 7px;
 }
 
 .services-page .price-note {
   margin-top: 7px;
-  color: rgba(var(--tone-accent-rgb), 0.92);
+  color: var(--primary-strong);
   font-size: 12px;
   font-weight: 600;
 }
@@ -949,7 +946,7 @@ img {
   padding-left: 28px;
   font-size: 14px;
   line-height: 1.45;
-  color: rgba(233, 241, 255, 0.82);
+  color: var(--muted);
 }
 
 .services-page .pricing-card .package-points li::before {
@@ -958,8 +955,8 @@ img {
   top: 5px;
   border: 0;
   border-radius: 999px;
-  background: rgba(var(--tone-accent-rgb), 0.2);
-  box-shadow: inset 0 0 0 4px var(--tone-accent);
+  background: rgba(15, 107, 255, 0.12);
+  box-shadow: inset 0 0 0 4px var(--primary);
   transform: none;
 }
 
@@ -972,27 +969,22 @@ img {
   padding: 14px 18px;
   border-radius: 0 0 20px 20px;
   border: 0;
-  background: var(--tone-accent);
-  color: var(--tone-button-text);
+  background: var(--primary);
+  color: #fff;
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.01em;
-  box-shadow: 0 12px 32px rgba(var(--tone-accent-rgb), 0.2);
+  box-shadow: 0 12px 28px rgba(15, 107, 255, 0.18);
 }
 
 .services-page .pricing-btn::before {
-  content: '';
-  position: absolute;
-  inset: 1px 1px auto;
-  height: 52%;
-  border-radius: 21px 21px 12px 12px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0));
-  pointer-events: none;
+  content: none;
 }
 
 .services-page .pricing-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 16px 36px rgba(var(--tone-accent-rgb), 0.24);
+  background: var(--primary-strong);
+  box-shadow: 0 16px 34px rgba(15, 107, 255, 0.22);
 }
 
 .services-page .tone-slate {
