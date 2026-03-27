@@ -156,26 +156,44 @@
       const packageSelect = document.getElementById('field-package-select');
       const fieldSubject = document.getElementById('field-subject');
 
-      const brochurePackages = ['Starter', 'Advanced', 'Pro'];
+      const developmentPackages = ['Landing Page', 'Business', 'Enterprise'];
       const monthlyPackages = ['Basic', 'Advanced', 'Pro'];
 
       const packageOptions = {
-        'Promotion page': ['Basic', 'Advanced'],
-        'Business site': brochurePackages,
-        'Complex Enterprise Site': ['Basic Enterprise', 'Advanced Enterprise', 'Super Enterprise'],
+        'Development Packages': developmentPackages,
         'Monthly development packages': monthlyPackages,
         'Monthly development': monthlyPackages,
         Maintenance: ['Basic Care', 'CarePlus', 'Ultimate Growth', 'Unlimited Care'],
-        'Database integration': ['Super Starter', 'Database Standard'],
         Website: ['Custom'],
       };
 
       const typeAliases = {
-        'Landing page': 'Promotion page',
-        'Brochure site (up to 8 pages)': 'Business site',
-        'Brochure site': 'Business site',
-        'Business site (up to 8 pages)': 'Business site',
-        'Advanced business site': 'Complex Enterprise Site',
+        'Development package': 'Development Packages',
+        'Promotion page': 'Development Packages',
+        'Business site': 'Development Packages',
+        'Complex Enterprise Site': 'Development Packages',
+        'Landing page': 'Development Packages',
+        'Brochure site (up to 8 pages)': 'Development Packages',
+        'Brochure site': 'Development Packages',
+        'Business site (up to 8 pages)': 'Development Packages',
+        'Advanced business site': 'Development Packages',
+      };
+
+      const packageAliases = {
+        'Promotion page': {
+          Basic: 'Landing Page',
+          Advanced: 'Landing Page',
+        },
+        'Business site': {
+          Starter: 'Business',
+          Advanced: 'Business',
+          Pro: 'Business',
+        },
+        'Complex Enterprise Site': {
+          'Basic Enterprise': 'Enterprise',
+          'Advanced Enterprise': 'Enterprise',
+          'Super Enterprise': 'Enterprise',
+        },
       };
 
       const normalizedType = typeAliases[typeFromQuery] || typeFromQuery;
@@ -231,10 +249,11 @@
         });
       }
 
+      const aliasedPackage = packageAliases[typeFromQuery]?.[pkgFromQuery];
       const initialPackage = populatePackageSelect(
         pkgFromQuery && getAvailablePackages(selectedType).includes(pkgFromQuery)
           ? pkgFromQuery
-          : undefined
+          : aliasedPackage
       );
 
       if (packageSelect) {
