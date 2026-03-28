@@ -466,6 +466,16 @@ img {
   box-shadow: 0 8px 24px rgba(15, 107, 255, 0.04);
 }
 
+.process-card h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.process-card p {
+  font-size: 15px;
+  line-height: 1.55;
+}
+
 .step-number {
   width: 42px;
   height: 42px;
@@ -476,6 +486,11 @@ img {
   place-items: center;
   font-weight: 700;
   margin-bottom: 12px;
+}
+
+.panel-footer .btn.small {
+  padding: 8px 12px;
+  font-size: 13px;
 }
 
 .project-grid {
@@ -1229,6 +1244,34 @@ img {
 
   .hero-copy {
     order: 1;
+  }
+}
+
+@media (min-width: 1081px) {
+  .process-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .process-card {
+    padding: 16px 14px;
+  }
+
+  .process-card h3 {
+    font-size: 17px;
+  }
+
+  .process-card p {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .step-number {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    font-size: 14px;
   }
 }
 
