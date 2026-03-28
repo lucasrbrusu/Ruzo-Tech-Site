@@ -63,11 +63,11 @@
             <p class="eyebrow">Selected package</p>
             <div class="summary-item">
               <span>Development type</span>
-              <span id="summary-type">Website</span>
+              <span id="summary-type">Development Packages</span>
             </div>
             <div class="summary-item">
               <span>Package</span>
-              <span id="summary-package">Custom</span>
+              <span id="summary-package">Landing Page</span>
             </div>
             <p class="request-note">Adjust the details below and submit so we can contact you with next steps.</p>
           </div>
@@ -148,7 +148,9 @@
   <script>
     (() => {
       const params = new URLSearchParams(window.location.search);
-      const typeFromQuery = params.get('type') || 'Website';
+      const defaultType = 'Development Packages';
+      const defaultPackage = 'Landing Page';
+      const typeFromQuery = params.get('type') || defaultType;
       const pkgFromQuery = params.get('package');
       const summaryType = document.getElementById('summary-type');
       const summaryPackage = document.getElementById('summary-package');
@@ -161,7 +163,6 @@
       const packageOptions = {
         'Development Packages': developmentPackages,
         Maintenance: ['Basic Care', 'CarePlus', 'Ultimate Growth', 'Unlimited Care'],
-        Website: ['Custom'],
       };
 
       const typeAliases = {
@@ -195,9 +196,9 @@
 
       const normalizedType = typeAliases[typeFromQuery] || typeFromQuery;
       const typeOptions = Object.keys(packageOptions);
-      let selectedType = packageOptions[normalizedType] ? normalizedType : 'Website';
+      let selectedType = packageOptions[normalizedType] ? normalizedType : defaultType;
 
-      const getAvailablePackages = (type) => packageOptions[type] || packageOptions.Website;
+      const getAvailablePackages = (type) => packageOptions[type] || packageOptions[defaultType];
 
       const setSubject = (pkg) => {
         if (fieldSubject) fieldSubject.value = `Dev Request - ${selectedType} - ${pkg}`;
@@ -250,7 +251,7 @@
       const initialPackage = populatePackageSelect(
         pkgFromQuery && getAvailablePackages(selectedType).includes(pkgFromQuery)
           ? pkgFromQuery
-          : aliasedPackage
+          : aliasedPackage || defaultPackage
       );
 
       if (packageSelect) {
