@@ -228,7 +228,7 @@ img {
 
 .nav-bar {
   display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   gap: 24px;
   padding: 18px 0;
@@ -238,6 +238,8 @@ img {
   display: flex;
   align-items: center;
   gap: 12px;
+  grid-column: 1;
+  justify-self: start;
 }
 
 .brand-link {
@@ -272,6 +274,7 @@ img {
   display: flex;
   align-items: center;
   gap: 10px;
+  grid-column: 2;
   justify-self: center;
 }
 
@@ -292,6 +295,7 @@ img {
   display: flex;
   align-items: center;
   gap: 10px;
+  grid-column: 3;
   justify-self: end;
 }
 
@@ -333,6 +337,8 @@ img {
   display: none;
   flex-direction: column;
   gap: 5px;
+  grid-column: 3;
+  justify-self: end;
   background: none;
   border: none;
   cursor: pointer;
