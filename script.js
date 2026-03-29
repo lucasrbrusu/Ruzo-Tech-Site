@@ -4,6 +4,7 @@ const navLinks = document.querySelector('.nav-links');
 const themeToggles = document.querySelectorAll('.theme-toggle');
 const anchorLinks = document.querySelectorAll('a[href^="#"]');
 const landingIntro = document.querySelector('.landing-intro');
+const landingPromoLines = document.querySelectorAll('[data-landing-line]');
 const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 const THEME_KEY = 'ruzotech-theme';
@@ -56,6 +57,28 @@ themeToggles.forEach((button) => {
 });
 
 applyTheme(getPreferredTheme());
+
+if (landingPromoLines.length > 1 && !reduceMotionQuery.matches) {
+  let activeLandingPromoIndex = 0;
+
+  window.setInterval(() => {
+    const currentLine = landingPromoLines[activeLandingPromoIndex];
+    const nextIndex = (activeLandingPromoIndex + 1) % landingPromoLines.length;
+    const nextLine = landingPromoLines[nextIndex];
+
+    currentLine.classList.remove('is-active');
+    currentLine.classList.add('is-exit');
+    currentLine.setAttribute('aria-hidden', 'true');
+    nextLine.setAttribute('aria-hidden', 'false');
+    nextLine.classList.add('is-active');
+
+    window.setTimeout(() => {
+      currentLine.classList.remove('is-exit');
+    }, 760);
+
+    activeLandingPromoIndex = nextIndex;
+  }, 3000);
+}
 
 if (navToggle && navLinks) {
   navToggle.addEventListener('click', () => {
