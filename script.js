@@ -1,9 +1,73 @@
 const header = document.querySelector('.site-header');
 const navToggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('.nav-links');
+const themeToggles = document.querySelectorAll('.theme-toggle');
 const anchorLinks = document.querySelectorAll('a[href^="#"]');
 const landingIntro = document.querySelector('.landing-intro');
 const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+const themeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+const THEME_KEY = 'ruzotech-theme';
+
+const getStoredTheme = () => {
+  try {
+    const storedTheme = localStorage.getItem(THEME_KEY);
+    return storedTheme === 'dark' || storedTheme === 'light' ? storedTheme : null;
+  } catch (e) {
+    return null;
+  }
+};
+
+const getPreferredTheme = () => {
+  const storedTheme = getStoredTheme();
+  if (storedTheme) return storedTheme;
+  return themeMediaQuery.matches ? 'dark' : 'light';
+};
+
+const updateThemeToggle = (button, theme) => {
+  const nextTheme = theme === 'dark' ? 'light' : 'dark';
+  const icon = button.querySelector('.theme-toggle__icon');
+  const text = button.querySelector('.theme-toggle__text');
+
+  button.setAttribute('aria-pressed', String(theme === 'dark'));
+  button.setAttribute('aria-label', `Switch to ${nextTheme} mode`);
+  if (icon) icon.textContent = theme === 'dark' ? '☀' : '☾';
+  if (text) text.textContent = `${nextTheme.charAt(0).toUpperCase()}${nextTheme.slice(1)} mode`;
+};
+
+const applyTheme = (theme, persist = false) => {
+  document.documentElement.setAttribute('data-theme', theme);
+  themeToggles.forEach((button) => updateThemeToggle(button, theme));
+
+  if (!persist) return;
+
+  try {
+    localStorage.setItem(THEME_KEY, theme);
+  } catch (e) {
+    // Ignore storage errors and keep the theme for the current session.
+  }
+};
+
+themeToggles.forEach((button) => {
+  button.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(nextTheme, true);
+  });
+});
+
+const handleSystemThemeChange = (event) => {
+  if (getStoredTheme()) return;
+  applyTheme(event.matches ? 'dark' : 'light');
+};
+
+if (typeof themeMediaQuery.addEventListener === 'function') {
+  themeMediaQuery.addEventListener('change', handleSystemThemeChange);
+} else if (typeof themeMediaQuery.addListener === 'function') {
+  themeMediaQuery.addListener(handleSystemThemeChange);
+}
+
+applyTheme(getPreferredTheme());
 
 if (navToggle && navLinks) {
   navToggle.addEventListener('click', () => {
