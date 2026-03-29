@@ -12,19 +12,31 @@ const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 const THEME_KEY = 'ruzotech-theme';
 const CURRENCY_KEY = 'ruzotech-currency';
 const CURRENCIES = {
-  GBP: { rate: 1, symbol: '\u00A3' },
-  USD: { rate: 1.28, symbol: '$' },
-  EUR: { rate: 1.17, symbol: '\u20AC' },
+  GBP: { symbol: '\u00A3' },
+  USD: { symbol: '$' },
+  EUR: { symbol: '\u20AC' },
 };
-const CURRENCY_PRICE_OVERRIDES = {
+const CURRENCY_PRICES = {
+  GBP: {
+    'landing-page': 200,
+    business: 450,
+    'basic-care': 19,
+    'care-plus': 39,
+    'ultimate-growth': 79,
+    'unlimited-care': 129,
+  },
   USD: {
     'landing-page': 250,
     business: 550,
+    'basic-care': 24,
+    'care-plus': 50,
     'ultimate-growth': 100,
+    'unlimited-care': 165,
   },
   EUR: {
     'landing-page': 230,
     business: 530,
+    'basic-care': 22,
     'care-plus': 49,
     'ultimate-growth': 90,
     'unlimited-care': 150,
@@ -92,16 +104,13 @@ const applyCurrency = (currencyCode, persist = false) => {
   currencySelect.value = currencyCode in CURRENCIES ? currencyCode : 'GBP';
 
   priceLines.forEach((line) => {
-    const basePrice = Number(line.dataset.priceGbp);
     const priceId = line.dataset.priceId;
     const currencyNode = line.querySelector('.price-currency');
     const amountNode = line.querySelector('.price-amount');
-    if (!Number.isFinite(basePrice) || !currencyNode || !amountNode) return;
+    if (!priceId || !currencyNode || !amountNode) return;
 
-    const overrideAmount = priceId ? CURRENCY_PRICE_OVERRIDES[currencySelect.value]?.[priceId] : null;
-    const displayAmount = Number.isFinite(overrideAmount)
-      ? overrideAmount
-      : Math.round(basePrice * currency.rate);
+    const displayAmount = CURRENCY_PRICES[currencySelect.value]?.[priceId];
+    if (!Number.isFinite(displayAmount)) return;
 
     currencyNode.textContent = currency.symbol;
     amountNode.textContent = formatPriceAmount(displayAmount);
