@@ -55,10 +55,8 @@
   --discover-shadow-hover: 0 24px 68px rgba(15, 107, 255, 0.24);
   --discover-label-color: rgba(12, 29, 58, 0.78);
   --discover-label-hover: #0c1d3a;
-  --landing-promo-bg: rgba(255, 255, 255, 0.2);
-  --landing-promo-border: rgba(12, 88, 217, 0.16);
   --landing-promo-copy: #0c1d3a;
-  --landing-promo-copy-shadow: 0 16px 32px rgba(117, 161, 226, 0.22);
+  --landing-promo-copy-shadow: 0 8px 24px rgba(117, 161, 226, 0.18);
   --cta-bg: linear-gradient(135deg, #0f6bff, #0c58d9);
   --cta-card-bg: #ffffff;
   --cta-sub-color: rgba(255, 255, 255, 0.82);
@@ -119,10 +117,8 @@
   --discover-shadow-hover: 0 24px 68px rgba(15, 107, 255, 0.28);
   --discover-label-color: rgba(255, 255, 255, 0.86);
   --discover-label-hover: #ffffff;
-  --landing-promo-bg: rgba(7, 24, 47, 0.32);
-  --landing-promo-border: rgba(129, 184, 255, 0.18);
   --landing-promo-copy: #f5f9ff;
-  --landing-promo-copy-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+  --landing-promo-copy-shadow: 0 10px 28px rgba(0, 0, 0, 0.34);
   --cta-bg: linear-gradient(135deg, #0a4fbe, #093987);
   --cta-card-bg: #10243f;
   --cta-sub-color: rgba(234, 242, 255, 0.82);
@@ -457,26 +453,11 @@ img {
   z-index: 1;
   width: min(36rem, 42vw);
   transform: translateY(-50%);
-  padding: 24px 28px;
-  border: 1px solid var(--landing-promo-border);
-  border-radius: 26px;
-  background: var(--landing-promo-bg);
-  backdrop-filter: blur(12px);
-  box-shadow: var(--landing-promo-copy-shadow);
-}
-
-.landing-promo__eyebrow {
-  margin-bottom: 16px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--primary);
 }
 
 .landing-promo__frame {
   position: relative;
-  min-height: 11rem;
+  min-height: 10.6rem;
   perspective: 1400px;
 }
 
@@ -492,24 +473,22 @@ img {
   font-weight: 700;
   letter-spacing: -0.045em;
   text-wrap: balance;
+  text-shadow: var(--landing-promo-copy-shadow);
   opacity: 0;
   transform: translateY(22px) rotateX(78deg);
   transform-origin: top center;
-  filter: blur(6px);
   pointer-events: none;
-  transition: transform 0.72s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.34s ease, filter 0.34s ease;
+  transition: transform 0.72s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.34s ease;
 }
 
 .landing-promo__line.is-active {
   opacity: 1;
   transform: translateY(0) rotateX(0deg);
-  filter: none;
 }
 
 .landing-promo__line.is-exit {
   opacity: 0;
   transform: translateY(-26px) rotateX(-82deg);
-  filter: blur(7px);
 }
 
 .discover-control {
@@ -521,11 +500,11 @@ img {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   color: var(--discover-label-hover);
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-size: 12px;
+  letter-spacing: 0.14em;
+  font-size: 11px;
   font-weight: 700;
 }
 
@@ -534,8 +513,8 @@ img {
 }
 
 .discover-circle {
-  width: 72px;
-  height: 72px;
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -543,7 +522,7 @@ img {
   background: var(--discover-bg);
   box-shadow: var(--discover-shadow);
   backdrop-filter: blur(12px);
-  font-size: 34px;
+  font-size: 28px;
   line-height: 1;
   transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   animation: discoverPulse 2.8s ease-in-out infinite;
@@ -1781,16 +1760,10 @@ img {
     left: 50%;
     width: min(34rem, calc(100% - 32px));
     transform: translate(-50%, -50%);
-    padding: 20px 22px;
-  }
-
-  .landing-promo__eyebrow {
-    margin-bottom: 14px;
-    text-align: center;
   }
 
   .landing-promo__frame {
-    min-height: 9.8rem;
+    min-height: 9.2rem;
   }
 
   .landing-promo__line {
@@ -1808,9 +1781,9 @@ img {
   }
 
   .discover-circle {
-    width: 64px;
-    height: 64px;
-    font-size: 30px;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
   }
 
   .home-content {

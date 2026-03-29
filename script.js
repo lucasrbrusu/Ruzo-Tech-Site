@@ -77,7 +77,7 @@ if (landingPromoLines.length > 1 && !reduceMotionQuery.matches) {
     }, 760);
 
     activeLandingPromoIndex = nextIndex;
-  }, 3000);
+  }, 5000);
 }
 
 if (navToggle && navLinks) {
