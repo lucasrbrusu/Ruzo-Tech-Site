@@ -525,14 +525,14 @@ img {
 }
 
 .project-thumb {
-  height: 140px;
+  height: 220px;
 }
 
 .project-thumb.project-thumb-art {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 14px;
+  padding: 4px 10px;
 }
 
 .project-thumb.project-thumb-art img {
@@ -1414,6 +1414,10 @@ img {
 
   .cookie-actions .btn {
     width: 100%;
+  }
+
+  .project-thumb {
+    height: 210px;
   }
 
   .services-page .package-grid {
