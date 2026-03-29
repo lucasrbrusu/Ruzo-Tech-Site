@@ -398,66 +398,6 @@ img {
   color: var(--muted);
 }
 
-.service-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
-  margin: 34px 0 42px;
-}
-
-.service-gallery-card {
-  overflow: hidden;
-  border: 1px solid rgba(15, 107, 255, 0.12);
-  border-radius: 28px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(239, 245, 255, 0.94) 100%);
-  box-shadow: 0 16px 38px rgba(15, 107, 255, 0.08);
-}
-
-.service-gallery-card:nth-child(2) {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(232, 249, 255, 0.94) 100%);
-}
-
-.service-gallery-card:nth-child(3) {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(235, 246, 255, 0.96) 100%);
-}
-
-.service-gallery-media {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  aspect-ratio: 1 / 1;
-  padding: 18px;
-  background: linear-gradient(180deg, #f8fbff 0%, #edf4ff 100%);
-}
-
-.service-gallery-media img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.service-gallery-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 20px 20px 22px;
-}
-
-.service-gallery-copy .eyebrow {
-  margin-bottom: 0;
-}
-
-.service-gallery-copy h3 {
-  font-size: 25px;
-  line-height: 1.08;
-}
-
-.service-gallery-text {
-  color: var(--muted);
-  line-height: 1.55;
-}
-
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -569,19 +509,19 @@ img {
 }
 
 .project-thumb {
-  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 176px;
+  padding: 12px;
+  background: linear-gradient(135deg, #0f6bff, #cfe2ff);
 }
 
-.gradient-one {
-  background: linear-gradient(135deg, #0f6bff, #7fb5ff);
-}
-
-.gradient-two {
-  background: linear-gradient(135deg, #0f6bff, #b5d6ff);
-}
-
-.gradient-three {
-  background: linear-gradient(135deg, #0f6bff, #e3f0ff);
+.project-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .project-body {
@@ -1455,15 +1395,4 @@ img {
     font-size: 2.7rem;
   }
 
-  .service-gallery {
-    margin: 26px 0 34px;
-  }
-
-  .service-gallery-copy {
-    padding: 18px;
-  }
-
-  .service-gallery-copy h3 {
-    font-size: 22px;
-  }
 }
