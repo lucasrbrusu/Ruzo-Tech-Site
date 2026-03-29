@@ -542,20 +542,20 @@ img {
   max-width: none;
   max-height: none;
   object-fit: contain;
-  transform: scale(2.05);
+  transform: scale(1.55);
   transform-origin: center center;
 }
 
 .project-thumb.project-thumb-art.gradient-one img {
-  transform: scale(2.1);
+  transform: scale(1.6);
 }
 
 .project-thumb.project-thumb-art.gradient-two img {
-  transform: scale(2.05);
+  transform: scale(1.55);
 }
 
 .project-thumb.project-thumb-art.gradient-three img {
-  transform: scale(1.9);
+  transform: scale(1.45);
 }
 
 .gradient-one {
