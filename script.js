@@ -16,6 +16,20 @@ const CURRENCIES = {
   USD: { rate: 1.28, symbol: '$' },
   EUR: { rate: 1.17, symbol: '\u20AC' },
 };
+const CURRENCY_PRICE_OVERRIDES = {
+  USD: {
+    'landing-page': 250,
+    business: 550,
+    'ultimate-growth': 100,
+  },
+  EUR: {
+    'landing-page': 230,
+    business: 530,
+    'care-plus': 49,
+    'ultimate-growth': 90,
+    'unlimited-care': 150,
+  },
+};
 
 const getStoredTheme = () => {
   try {
@@ -79,12 +93,18 @@ const applyCurrency = (currencyCode, persist = false) => {
 
   priceLines.forEach((line) => {
     const basePrice = Number(line.dataset.priceGbp);
+    const priceId = line.dataset.priceId;
     const currencyNode = line.querySelector('.price-currency');
     const amountNode = line.querySelector('.price-amount');
     if (!Number.isFinite(basePrice) || !currencyNode || !amountNode) return;
 
+    const overrideAmount = priceId ? CURRENCY_PRICE_OVERRIDES[currencySelect.value]?.[priceId] : null;
+    const displayAmount = Number.isFinite(overrideAmount)
+      ? overrideAmount
+      : Math.round(basePrice * currency.rate);
+
     currencyNode.textContent = currency.symbol;
-    amountNode.textContent = formatPriceAmount(Math.round(basePrice * currency.rate));
+    amountNode.textContent = formatPriceAmount(displayAmount);
   });
 
   if (!persist) return;
