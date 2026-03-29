@@ -22,13 +22,12 @@
   <script>
     (() => {
       const themeKey = 'ruzotech-theme';
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
       try {
         const storedTheme = localStorage.getItem(themeKey);
-        const theme = storedTheme === 'dark' || storedTheme === 'light' ? storedTheme : (prefersDark ? 'dark' : 'light');
+        const theme = storedTheme === 'dark' || storedTheme === 'light' ? storedTheme : 'dark';
         document.documentElement.setAttribute('data-theme', theme);
       } catch (e) {
-        document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', 'dark');
       }
     })();
   </script>
@@ -54,7 +53,7 @@
       </div>
       <button class="theme-toggle" type="button" aria-label="Switch color mode" aria-pressed="false">
         <span class="theme-toggle__icon" aria-hidden="true">☾</span>
-        <span class="theme-toggle__text">Dark mode</span>
+        <span class="theme-toggle__text">Dark</span>
       </button>
       <button class="nav-toggle" aria-label="Toggle navigation">
         <span></span>
