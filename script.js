@@ -2,11 +2,8 @@ const header = document.querySelector('.site-header');
 const navToggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('.nav-links');
 const anchorLinks = document.querySelectorAll('a[href^="#"]');
-const pageTransition = document.querySelector('.page-transition');
+const landingIntro = document.querySelector('.landing-intro');
 const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-let fadeScrollStartTimer;
-let fadeScrollEndTimer;
 
 if (navToggle && navLinks) {
   navToggle.addEventListener('click', () => {
@@ -30,30 +27,22 @@ const updateHeaderState = () => {
   }
 };
 
-window.addEventListener('scroll', updateHeaderState);
-updateHeaderState();
+const updateLandingIntroState = () => {
+  if (!landingIntro) return;
 
-const triggerFadeScroll = (target) => {
-  if (!target) return;
-
-  if (reduceMotionQuery.matches || !pageTransition) {
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    return;
-  }
-
-  window.clearTimeout(fadeScrollStartTimer);
-  window.clearTimeout(fadeScrollEndTimer);
-
-  pageTransition.classList.add('is-active');
-
-  fadeScrollStartTimer = window.setTimeout(() => {
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 90);
-
-  fadeScrollEndTimer = window.setTimeout(() => {
-    pageTransition.classList.remove('is-active');
-  }, 820);
+  const fadeDistance = Math.max(landingIntro.offsetHeight * 0.7, 1);
+  const progress = Math.min(window.scrollY / fadeDistance, 1);
+  landingIntro.style.opacity = String(1 - progress);
 };
+
+const updateScrollState = () => {
+  updateHeaderState();
+  updateLandingIntroState();
+};
+
+window.addEventListener('scroll', updateScrollState);
+window.addEventListener('resize', updateLandingIntroState);
+updateScrollState();
 
 anchorLinks.forEach((link) => {
   const targetId = link.getAttribute('href');
@@ -63,13 +52,7 @@ anchorLinks.forEach((link) => {
     const target = document.querySelector(targetId);
     if (!target) return;
     event.preventDefault();
-
-    if (link.hasAttribute('data-fade-scroll')) {
-      triggerFadeScroll(target);
-      return;
-    }
-
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    target.scrollIntoView({ behavior: reduceMotionQuery.matches ? 'auto' : 'smooth', block: 'start' });
   });
 });
 
@@ -82,6 +65,10 @@ if (window.location.hash === '#services' && !window.location.pathname.includes('
 (() => {
   const CONSENT_KEY = 'ruzotech-cookie-consent';
   const defaultPrefs = { necessary: true, analytics: false };
+
+  const setCookieBannerState = (isVisible) => {
+    document.body.classList.toggle('has-cookie-banner', Boolean(isVisible));
+  };
 
   const parseConsent = () => {
     try {
@@ -117,7 +104,12 @@ if (window.location.hash === '#services' && !window.location.pathname.includes('
   };
 
   const createBanner = (showPreferences = false) => {
-    if (document.querySelector('.cookie-banner')) return document.querySelector('.cookie-banner');
+    const existingBanner = document.querySelector('.cookie-banner');
+    if (existingBanner) {
+      setCookieBannerState(true);
+      return existingBanner;
+    }
+
     const consent = parseConsent() || defaultPrefs;
 
     const banner = document.createElement('div');
@@ -159,6 +151,7 @@ if (window.location.hash === '#services' && !window.location.pathname.includes('
     if (analyticsToggle) analyticsToggle.checked = Boolean(consent.analytics);
 
     const closeBanner = () => {
+      setCookieBannerState(false);
       banner.remove();
     };
 
@@ -182,6 +175,7 @@ if (window.location.hash === '#services' && !window.location.pathname.includes('
     });
 
     document.body.appendChild(banner);
+    setCookieBannerState(true);
     if (showPreferences && prefsPanel) {
       prefsPanel.classList.add('open');
     }
@@ -192,6 +186,7 @@ if (window.location.hash === '#services' && !window.location.pathname.includes('
   const consent = parseConsent();
   if (consent) {
     applyConsent(consent);
+    setCookieBannerState(false);
   } else {
     createBanner();
   }
@@ -200,6 +195,7 @@ if (window.location.hash === '#services' && !window.location.pathname.includes('
   const openPreferences = () => {
     const existing = document.querySelector('.cookie-banner');
     if (existing) {
+      setCookieBannerState(true);
       const panel = existing.querySelector('[data-cookie-preferences]');
       panel?.classList.add('open');
       return;

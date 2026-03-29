@@ -22,21 +22,6 @@ body {
   line-height: 1.6;
 }
 
-.page-transition {
-  position: fixed;
-  inset: 0;
-  z-index: 120;
-  pointer-events: none;
-  opacity: 0;
-  background:
-    radial-gradient(circle at 50% 35%, rgba(66, 150, 255, 0.24) 0%, rgba(12, 88, 217, 0.18) 28%, rgba(2, 8, 22, 0.78) 100%);
-  transition: opacity 0.45s ease;
-}
-
-.page-transition.is-active {
-  opacity: 1;
-}
-
 .home-content {
   position: relative;
   scroll-margin-top: 88px;
@@ -281,6 +266,9 @@ img {
   padding: 140px 24px 48px;
   overflow: hidden;
   isolation: isolate;
+  opacity: 1;
+  transition: opacity 0.12s linear;
+  will-change: opacity;
   background-color: #07182f;
   background-image: url('assets/city-landing.png');
   background-position: center center;
@@ -312,7 +300,7 @@ img {
 .discover-control {
   position: absolute;
   left: 50%;
-  bottom: clamp(235px, 24vh, 300px);
+  bottom: clamp(32px, 5vh, 52px);
   transform: translateX(-50%);
   z-index: 1;
   display: inline-flex;
@@ -324,6 +312,10 @@ img {
   letter-spacing: 0.16em;
   font-size: 12px;
   font-weight: 700;
+}
+
+.home-page.has-cookie-banner .discover-control {
+  bottom: 220px;
 }
 
 .discover-circle {
@@ -1555,7 +1547,11 @@ img {
   }
 
   .discover-control {
-    bottom: 210px;
+    bottom: 24px;
+  }
+
+  .home-page.has-cookie-banner .discover-control {
+    bottom: 200px;
   }
 
   .discover-circle {
@@ -1644,7 +1640,7 @@ img {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .page-transition,
+  .landing-intro,
   .discover-circle,
   .site-header,
   .nav-links a,
