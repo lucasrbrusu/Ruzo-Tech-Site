@@ -525,19 +525,19 @@ img {
 }
 
 .project-thumb {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 176px;
-  padding: 12px;
-  background: linear-gradient(135deg, #0f6bff, #cfe2ff);
+  height: 140px;
 }
 
-.project-thumb img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+.gradient-one {
+  background: linear-gradient(135deg, #0f6bff, #7fb5ff);
+}
+
+.gradient-two {
+  background: linear-gradient(135deg, #0f6bff, #b5d6ff);
+}
+
+.gradient-three {
+  background: linear-gradient(135deg, #0f6bff, #e3f0ff);
 }
 
 .project-body {
