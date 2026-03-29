@@ -2,12 +2,20 @@ const header = document.querySelector('.site-header');
 const navToggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('.nav-links');
 const themeToggles = document.querySelectorAll('.theme-toggle');
+const currencySelect = document.querySelector('[data-currency-select]');
+const priceLines = document.querySelectorAll('[data-price-gbp]');
 const anchorLinks = document.querySelectorAll('a[href^="#"]');
 const landingIntro = document.querySelector('.landing-intro');
 const landingPromoLines = document.querySelectorAll('[data-landing-line]');
 const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 const THEME_KEY = 'ruzotech-theme';
+const CURRENCY_KEY = 'ruzotech-currency';
+const CURRENCIES = {
+  GBP: { rate: 1, symbol: '\u00A3' },
+  USD: { rate: 1.28, symbol: '$' },
+  EUR: { rate: 1.17, symbol: '\u20AC' },
+};
 
 const getStoredTheme = () => {
   try {
@@ -23,6 +31,21 @@ const getPreferredTheme = () => {
   if (storedTheme) return storedTheme;
   return 'dark';
 };
+
+const getStoredCurrency = () => {
+  try {
+    const storedCurrency = localStorage.getItem(CURRENCY_KEY);
+    return storedCurrency && CURRENCIES[storedCurrency] ? storedCurrency : null;
+  } catch (e) {
+    return null;
+  }
+};
+
+const formatPriceAmount = (value) => (
+  new Intl.NumberFormat('en-GB', {
+    maximumFractionDigits: 0,
+  }).format(value)
+);
 
 const updateThemeToggle = (button, theme) => {
   const nextTheme = theme === 'dark' ? 'light' : 'dark';
@@ -48,6 +71,31 @@ const applyTheme = (theme, persist = false) => {
   }
 };
 
+const applyCurrency = (currencyCode, persist = false) => {
+  if (!currencySelect || !priceLines.length) return;
+
+  const currency = CURRENCIES[currencyCode] || CURRENCIES.GBP;
+  currencySelect.value = currencyCode in CURRENCIES ? currencyCode : 'GBP';
+
+  priceLines.forEach((line) => {
+    const basePrice = Number(line.dataset.priceGbp);
+    const currencyNode = line.querySelector('.price-currency');
+    const amountNode = line.querySelector('.price-amount');
+    if (!Number.isFinite(basePrice) || !currencyNode || !amountNode) return;
+
+    currencyNode.textContent = currency.symbol;
+    amountNode.textContent = formatPriceAmount(Math.round(basePrice * currency.rate));
+  });
+
+  if (!persist) return;
+
+  try {
+    localStorage.setItem(CURRENCY_KEY, currencySelect.value);
+  } catch (e) {
+    // Ignore storage errors and keep the selected currency for the current session.
+  }
+};
+
 themeToggles.forEach((button) => {
   button.addEventListener('click', () => {
     const currentTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
@@ -57,6 +105,14 @@ themeToggles.forEach((button) => {
 });
 
 applyTheme(getPreferredTheme());
+
+if (currencySelect && priceLines.length) {
+  applyCurrency(getStoredCurrency() || 'GBP');
+
+  currencySelect.addEventListener('change', (event) => {
+    applyCurrency(event.target.value, true);
+  });
+}
 
 if (landingPromoLines.length > 1 && !reduceMotionQuery.matches) {
   let activeLandingPromoIndex = 0;
