@@ -245,7 +245,7 @@ img {
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
   gap: 24px;
-  padding: 18px 0;
+  padding: 15px 0;
 }
 
 .brand {
@@ -1908,7 +1908,7 @@ img {
   }
 
   .nav-bar {
-    padding: 14px 0;
+    padding: 12px 0;
   }
 
   .hero {
