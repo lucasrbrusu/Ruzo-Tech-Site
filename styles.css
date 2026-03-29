@@ -225,7 +225,7 @@ img {
 .nav-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 24px;
   padding: 18px 0;
 }
@@ -293,6 +293,7 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  margin-left: auto;
   padding: 10px 14px;
   border-radius: 999px;
   border: 1px solid var(--theme-toggle-border);
@@ -327,6 +328,7 @@ img {
   display: none;
   flex-direction: column;
   gap: 5px;
+  margin-left: 8px;
   background: none;
   border: none;
   cursor: pointer;
@@ -830,11 +832,11 @@ img {
 }
 
 .project-thumb.project-thumb-art.gradient-one img {
-  transform: scale(1.6);
+  transform: scale(1.46);
 }
 
 .project-thumb.project-thumb-art.gradient-two img {
-  transform: scale(1.55);
+  transform: scale(1.4);
 }
 
 .project-thumb.project-thumb-art.gradient-three img {
