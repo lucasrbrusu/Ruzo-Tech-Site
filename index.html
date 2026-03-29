@@ -41,7 +41,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="home-page">
   <header class="site-header">
     <div class="container nav-bar">
       <a class="brand brand-link" href="index.html">
@@ -67,96 +67,106 @@
     </div>
   </header>
 
+  <div class="page-transition" aria-hidden="true"></div>
+
   <main>
-    <section class="hero" id="top">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow">Websites that convert</p>
-          <h1>We craft high-performing websites for you.</h1>
-          <p class="lead">Ruzo Tech develops its own apps and digital products. For clients, we focus solely on designing and building conversion-driven websites with reliable delivery.</p>
-          <div class="hero-actions">
-            <a class="btn primary" href="request.html">Start a project</a>
-            <a class="btn ghost" href="services.html">View services</a>
-          </div>
-          <div class="hero-stats">
-            <div class="stat">
-              <span class="stat-value">50+</span>
-              <span class="stat-label">Projects shipped</span>
-            </div>
-            <div class="stat">
-              <span class="stat-value">1-4 weeks</span>
-              <span class="stat-label">Typical timeline</span>
-            </div>
-            <div class="stat">
-              <span class="stat-value">24/7</span>
-              <span class="stat-label">Status visibility</span>
-            </div>
-          </div>
-        </div>
-        <div class="hero-visual">
-          <div class="glass-panel">
-            <div class="panel-header">
-              <div>
-                <p class="eyebrow">Website development process</p>
-                <h3>Technical build flow</h3>
-              </div>
-              <span class="pill success">6 stages</span>
-            </div>
-            <ul class="panel-list">
-              <li>
-                <div>
-                  <p class="list-title">Design Systems</p>
-                  <p class="list-sub">Design tokens, typography, spacing, and reusable UI components.</p>
-                </div>
-                <span class="badge">Step 01</span>
-              </li>
-              <li>
-                <div>
-                  <p class="list-title">Frontend build</p>
-                  <p class="list-sub">Responsive pages, interactions, accessibility, and performance-focused UI.</p>
-                </div>
-                <span class="badge">Step 02</span>
-              </li>
-              <li>
-                <div>
-                  <p class="list-title">Backend build</p>
-                  <p class="list-sub">CMS setup, data models, APIs, forms, and admin-side logic.</p>
-                </div>
-                <span class="badge">Step 03</span>
-              </li>
-              <li>
-                <div>
-                  <p class="list-title">Integrations</p>
-                  <p class="list-sub">Analytics, CRM, payments, automations, and third-party services.</p>
-                </div>
-                <span class="badge">Step 04</span>
-              </li>
-              <li>
-                <div>
-                  <p class="list-title">Compile build</p>
-                  <p class="list-sub">Production bundling, asset optimization, compression, and deployment prep.</p>
-                </div>
-                <span class="badge">Step 05</span>
-              </li>
-              <li>
-                <div>
-                  <p class="list-title">QA + Launch</p>
-                  <p class="list-sub">Cross-browser testing, bug fixes, tracking checks, and production release.</p>
-                </div>
-                <span class="badge">Step 06</span>
-              </li>
-            </ul>
-            <div class="panel-footer">
-              <div>
-                <p class="list-title">Build output</p>
-                <p class="list-sub">A production-ready website delivered through a structured build pipeline.</p>
-              </div>
-              <a class="btn primary small" href="request.html">Start project</a>
-            </div>
-          </div>
-        </div>
-      </div>
+    <section class="landing-intro" id="top" aria-label="Homepage intro">
+      <a class="discover-control" href="#home-content" data-fade-scroll aria-label="Discover the homepage">
+        <span class="discover-circle" aria-hidden="true">v</span>
+        <span class="discover-label">Discover</span>
+      </a>
     </section>
+
+    <div class="home-content" id="home-content">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Websites that convert</p>
+            <h1>We craft high-performing websites for you.</h1>
+            <p class="lead">Ruzo Tech develops its own apps and digital products. For clients, we focus solely on designing and building conversion-driven websites with reliable delivery.</p>
+            <div class="hero-actions">
+              <a class="btn primary" href="request.html">Start a project</a>
+              <a class="btn ghost" href="services.html">View services</a>
+            </div>
+            <div class="hero-stats">
+              <div class="stat">
+                <span class="stat-value">50+</span>
+                <span class="stat-label">Projects shipped</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">1-4 weeks</span>
+                <span class="stat-label">Typical timeline</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">24/7</span>
+                <span class="stat-label">Status visibility</span>
+              </div>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <div class="glass-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow">Website development process</p>
+                  <h3>Technical build flow</h3>
+                </div>
+                <span class="pill success">6 stages</span>
+              </div>
+              <ul class="panel-list">
+                <li>
+                  <div>
+                    <p class="list-title">Design Systems</p>
+                    <p class="list-sub">Design tokens, typography, spacing, and reusable UI components.</p>
+                  </div>
+                  <span class="badge">Step 01</span>
+                </li>
+                <li>
+                  <div>
+                    <p class="list-title">Frontend build</p>
+                    <p class="list-sub">Responsive pages, interactions, accessibility, and performance-focused UI.</p>
+                  </div>
+                  <span class="badge">Step 02</span>
+                </li>
+                <li>
+                  <div>
+                    <p class="list-title">Backend build</p>
+                    <p class="list-sub">CMS setup, data models, APIs, forms, and admin-side logic.</p>
+                  </div>
+                  <span class="badge">Step 03</span>
+                </li>
+                <li>
+                  <div>
+                    <p class="list-title">Integrations</p>
+                    <p class="list-sub">Analytics, CRM, payments, automations, and third-party services.</p>
+                  </div>
+                  <span class="badge">Step 04</span>
+                </li>
+                <li>
+                  <div>
+                    <p class="list-title">Compile build</p>
+                    <p class="list-sub">Production bundling, asset optimization, compression, and deployment prep.</p>
+                  </div>
+                  <span class="badge">Step 05</span>
+                </li>
+                <li>
+                  <div>
+                    <p class="list-title">QA + Launch</p>
+                    <p class="list-sub">Cross-browser testing, bug fixes, tracking checks, and production release.</p>
+                  </div>
+                  <span class="badge">Step 06</span>
+                </li>
+              </ul>
+              <div class="panel-footer">
+                <div>
+                  <p class="list-title">Build output</p>
+                  <p class="list-sub">A production-ready website delivered through a structured build pipeline.</p>
+                </div>
+                <a class="btn primary small" href="request.html">Start project</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
     <section id="process" class="section surface">
       <div class="container">
@@ -281,6 +291,7 @@
         </div>
       </div>
     </section>
+    </div>
   </main>
 
   <footer class="site-footer">

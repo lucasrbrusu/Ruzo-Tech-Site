@@ -1,7 +1,12 @@
-﻿const header = document.querySelector('.site-header');
+const header = document.querySelector('.site-header');
 const navToggle = document.querySelector('.nav-toggle');
 const navLinks = document.querySelector('.nav-links');
 const anchorLinks = document.querySelectorAll('a[href^="#"]');
+const pageTransition = document.querySelector('.page-transition');
+const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+let fadeScrollStartTimer;
+let fadeScrollEndTimer;
 
 if (navToggle && navLinks) {
   navToggle.addEventListener('click', () => {
@@ -17,22 +22,54 @@ if (navToggle && navLinks) {
   });
 }
 
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 10) {
+const updateHeaderState = () => {
+  if (window.scrollY > 32) {
     header?.classList.add('scrolled');
   } else {
     header?.classList.remove('scrolled');
   }
-});
+};
+
+window.addEventListener('scroll', updateHeaderState);
+updateHeaderState();
+
+const triggerFadeScroll = (target) => {
+  if (!target) return;
+
+  if (reduceMotionQuery.matches || !pageTransition) {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
+
+  window.clearTimeout(fadeScrollStartTimer);
+  window.clearTimeout(fadeScrollEndTimer);
+
+  pageTransition.classList.add('is-active');
+
+  fadeScrollStartTimer = window.setTimeout(() => {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 90);
+
+  fadeScrollEndTimer = window.setTimeout(() => {
+    pageTransition.classList.remove('is-active');
+  }, 820);
+};
 
 anchorLinks.forEach((link) => {
   const targetId = link.getAttribute('href');
   if (!targetId || targetId === '#') return;
+
   link.addEventListener('click', (event) => {
     const target = document.querySelector(targetId);
     if (!target) return;
     event.preventDefault();
-    target.scrollIntoView({ behavior: 'smooth' });
+
+    if (link.hasAttribute('data-fade-scroll')) {
+      triggerFadeScroll(target);
+      return;
+    }
+
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 

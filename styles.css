@@ -22,6 +22,26 @@ body {
   line-height: 1.6;
 }
 
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(66, 150, 255, 0.24) 0%, rgba(12, 88, 217, 0.18) 28%, rgba(2, 8, 22, 0.78) 100%);
+  transition: opacity 0.45s ease;
+}
+
+.page-transition.is-active {
+  opacity: 1;
+}
+
+.home-content {
+  position: relative;
+  scroll-margin-top: 88px;
+}
+
 h1,
 h2,
 h3,
@@ -65,6 +85,45 @@ img {
   box-shadow: 0 12px 30px rgba(15, 107, 255, 0.12);
   border-color: rgba(15, 107, 255, 0.15);
   background: rgba(255, 255, 255, 0.95);
+}
+
+.home-page .site-header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  background: transparent;
+  border-bottom-color: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.home-page .site-header:not(.scrolled) .logo-name,
+.home-page .site-header:not(.scrolled) .nav-links a {
+  color: #f8fbff;
+}
+
+.home-page .site-header:not(.scrolled) .logo-tag {
+  color: rgba(248, 251, 255, 0.76);
+}
+
+.home-page .site-header:not(.scrolled) .nav-links a:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.home-page .site-header:not(.scrolled) .nav-toggle span {
+  background: #ffffff;
+}
+
+.home-page .site-header:not(.scrolled) .btn.primary {
+  box-shadow: 0 16px 40px rgba(4, 12, 30, 0.24);
+}
+
+.home-page .site-header.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom-color: rgba(15, 107, 255, 0.12);
+  box-shadow: 0 12px 30px rgba(15, 107, 255, 0.12);
+  backdrop-filter: blur(10px);
 }
 
 .nav-bar {
@@ -213,6 +272,99 @@ img {
 .btn.full {
   width: 100%;
   justify-content: center;
+}
+
+.landing-intro {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 140px 24px 48px;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: #07182f;
+  background-image: url('assets/city-landing.png');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.landing-intro::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 32%, rgba(42, 144, 255, 0.44) 0%, rgba(42, 144, 255, 0.08) 34%, rgba(42, 144, 255, 0) 56%),
+    linear-gradient(180deg, rgba(2, 8, 22, 0.26) 0%, rgba(2, 8, 22, 0.08) 34%, rgba(2, 8, 22, 0.62) 100%);
+  z-index: 0;
+}
+
+.landing-intro::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 180px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.22) 48%, rgba(255, 255, 255, 0.92) 100%);
+  z-index: 0;
+}
+
+.discover-control {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(235px, 24vh, 300px);
+  transform: translateX(-50%);
+  z-index: 1;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.discover-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  background: rgba(3, 11, 28, 0.26);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.26);
+  backdrop-filter: blur(12px);
+  font-size: 34px;
+  line-height: 1;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  animation: discoverPulse 2.8s ease-in-out infinite;
+}
+
+.discover-label {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.discover-control:hover .discover-circle {
+  background: rgba(3, 11, 28, 0.38);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 24px 68px rgba(15, 107, 255, 0.28);
+}
+
+.discover-control:hover .discover-label {
+  color: #ffffff;
+}
+
+@keyframes discoverPulse {
+  0%,
+  100% {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.26);
+  }
+
+  50% {
+    box-shadow: 0 24px 68px rgba(15, 107, 255, 0.34);
+  }
 }
 
 .hero {
@@ -1326,6 +1478,20 @@ img {
 }
 
 @media (max-width: 900px) {
+  .home-page .nav-links {
+    background: rgba(6, 13, 27, 0.94);
+    border-color: rgba(255, 255, 255, 0.14);
+  }
+
+  .home-page .nav-links a {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .home-page .nav-links a:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
   .nav-links {
     display: none;
     position: absolute;
@@ -1378,6 +1544,28 @@ img {
 @media (max-width: 640px) {
   .services-page {
     --services-card-height: 37rem;
+  }
+
+  .landing-intro {
+    padding: 128px 16px 36px;
+  }
+
+  .landing-intro::after {
+    height: 120px;
+  }
+
+  .discover-control {
+    bottom: 210px;
+  }
+
+  .discover-circle {
+    width: 64px;
+    height: 64px;
+    font-size: 30px;
+  }
+
+  .home-content {
+    scroll-margin-top: 76px;
   }
 
   .nav-bar {
@@ -1453,4 +1641,18 @@ img {
     font-size: 2.7rem;
   }
 
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition,
+  .discover-circle,
+  .site-header,
+  .nav-links a,
+  .btn {
+    transition: none;
+  }
+
+  .discover-circle {
+    animation: none;
+  }
 }
