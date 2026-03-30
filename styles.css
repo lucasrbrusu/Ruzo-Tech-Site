@@ -47,13 +47,13 @@
   --theme-toggle-bg-hover: rgba(15, 107, 255, 0.14);
   --theme-toggle-border: rgba(15, 107, 255, 0.18);
   --theme-toggle-text: #0c1d3a;
-  --discover-bg: rgba(8, 24, 52, 0.84);
-  --discover-bg-hover: rgba(10, 32, 66, 0.92);
+  --discover-bg: transparent;
+  --discover-bg-hover: transparent;
   --discover-border: rgba(201, 226, 255, 0.44);
   --discover-border-hover: rgba(214, 234, 255, 0.76);
   --discover-shadow: 0 20px 60px rgba(7, 20, 42, 0.34);
   --discover-shadow-hover: 0 24px 68px rgba(12, 88, 217, 0.24);
-  --discover-icon-color: #f8fbff;
+  --discover-icon-color: var(--primary);
   --discover-label-color: rgba(12, 29, 58, 0.78);
   --discover-label-hover: #0c1d3a;
   --landing-promo-copy: #0c1d3a;
@@ -116,13 +116,13 @@
   --theme-toggle-bg-hover: rgba(148, 180, 236, 0.18);
   --theme-toggle-border: rgba(148, 180, 236, 0.2);
   --theme-toggle-text: #eaf2ff;
-  --discover-bg: rgba(245, 249, 255, 0.94);
-  --discover-bg-hover: rgba(255, 255, 255, 1);
+  --discover-bg: transparent;
+  --discover-bg-hover: transparent;
   --discover-border: rgba(196, 222, 255, 0.58);
   --discover-border-hover: rgba(255, 255, 255, 0.9);
   --discover-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   --discover-shadow-hover: 0 24px 68px rgba(15, 107, 255, 0.22);
-  --discover-icon-color: #07182f;
+  --discover-icon-color: var(--primary);
   --discover-label-color: rgba(255, 255, 255, 0.86);
   --discover-label-hover: #ffffff;
   --landing-promo-copy: #f5f9ff;
@@ -656,6 +656,9 @@ img {
   position: relative;
   padding: 140px 0 110px;
   overflow: hidden;
+  opacity: 1;
+  transition: opacity 0.12s linear;
+  will-change: opacity;
   background: var(--hero-bg);
 }
 
@@ -685,6 +688,7 @@ img {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 52px;
   align-items: start;
+  scroll-margin-top: 88px;
 }
 
 .hero-copy h1 {
@@ -1898,6 +1902,10 @@ img {
     scroll-margin-top: 76px;
   }
 
+  .hero-grid {
+    scroll-margin-top: 76px;
+  }
+
   .theme-toggle {
     min-width: 44px;
     padding: 10px;
@@ -1995,6 +2003,7 @@ img {
 
 @media (prefers-reduced-motion: reduce) {
   .landing-intro,
+  .hero,
   .discover-circle,
   .site-header,
   .nav-links a,

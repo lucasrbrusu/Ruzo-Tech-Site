@@ -6,6 +6,7 @@ const currencySelect = document.querySelector('[data-currency-select]');
 const priceLines = document.querySelectorAll('[data-price-gbp]');
 const anchorLinks = document.querySelectorAll('a[href^="#"]');
 const landingIntro = document.querySelector('.landing-intro');
+const homeHero = document.querySelector('.hero');
 const landingPromoLines = document.querySelectorAll('[data-landing-line]');
 const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -191,8 +192,9 @@ const updateLandingIntroState = () => {
   if (!landingIntro) return;
 
   const fadeDistance = Math.max(landingIntro.offsetHeight * 0.7, 1);
-  const progress = Math.min(window.scrollY / fadeDistance, 1);
+  const progress = Math.min(Math.max(window.scrollY, 0) / fadeDistance, 1);
   landingIntro.style.opacity = String(1 - progress);
+  if (homeHero) homeHero.style.opacity = String(progress);
 };
 
 const updateScrollState = () => {
