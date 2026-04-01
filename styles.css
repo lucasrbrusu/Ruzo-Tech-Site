@@ -186,14 +186,6 @@ body {
 }
 
 .home-stage__panel {
-  --panel-x: 0px;
-  --panel-y: 0px;
-  --panel-z: 0px;
-  --panel-rotate-y: 0deg;
-  --panel-rotate-x: 0deg;
-  --panel-opacity: 1;
-  --panel-blur: 0px;
-  --panel-saturation: 1;
   position: relative;
   overflow: hidden;
   border-radius: 32px;
@@ -205,14 +197,11 @@ body {
     0 90px 140px rgba(15, 107, 255, 0.12);
   transform-style: preserve-3d;
   transform-origin: center center;
+  transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
-  opacity: var(--panel-opacity);
-  filter: blur(var(--panel-blur)) saturate(var(--panel-saturation));
-  transform:
-    translate3d(var(--panel-x), var(--panel-y), var(--panel-z))
-    rotateY(var(--panel-rotate-y))
-    rotateX(var(--panel-rotate-x));
-  will-change: transform, opacity, filter;
+  -webkit-backface-visibility: hidden;
+  contain: paint;
+  will-change: transform, opacity;
   transition: box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
