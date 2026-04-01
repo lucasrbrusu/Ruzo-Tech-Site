@@ -46,12 +46,21 @@ const CURRENCY_PRICES = {
 };
 
 const HOME_PANEL_BREAKPOINT = 900;
-const HOME_PANEL_LERP = 0.15;
+const HOME_PANEL_LERP = 0.13;
 const HOME_PANEL_SETTLE_EPSILON = 0.12;
 const HOME_PANEL_VISUAL_EPSILON = 0.002;
+const INTRO_FADE_DELAY_RATIO = 0.24;
+const HOME_PANEL_ENTRY_START_RATIO = 0.56;
+const HOME_PANEL_ENTRY_END_RATIO = 0.08;
+const HOME_PANEL_EXIT_START_RATIO = 0.08;
+const HOME_PANEL_DEPTH_STEP = 10;
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 const lerp = (start, end, amount) => start + ((end - start) * amount);
+const getRangedProgress = (value, start, end) => {
+  if (start === end) return value >= end ? 1 : 0;
+  return clamp((value - start) / (end - start), 0, 1);
+};
 
 const easeInOutCubic = (value) => (
   value < 0.5
@@ -355,7 +364,10 @@ const updateLandingIntroState = () => {
   if (!landingIntro) return;
 
   const fadeDistance = Math.max(landingIntro.offsetHeight * 0.7, 1);
-  const progress = clamp(window.scrollY / fadeDistance, 0, 1);
+  const fadeDelay = fadeDistance * INTRO_FADE_DELAY_RATIO;
+  const rawProgress = getRangedProgress(window.scrollY, fadeDelay, fadeDistance);
+  const progress = easeInOutCubic(rawProgress);
+
   landingIntro.style.opacity = String(1 - progress);
   if (homeHero) homeHero.style.opacity = String(progress);
 };
@@ -375,25 +387,23 @@ const updateHomePanelState = () => {
     const { section, panel, current, target } = state;
     const rect = section.getBoundingClientRect();
     const direction = section.dataset.panelSide === 'left' ? -1 : 1;
-    const entryStart = viewportHeight * 0.68;
-    const entryEnd = viewportHeight * 0.14;
-    const rawEntryProgress = clamp((entryStart - rect.top) / (entryStart - entryEnd), 0, 1);
-    const entryProgress = easeInOutCubic(rawEntryProgress);
-    const exitStart = viewportHeight * 0.16;
-    const exitEnd = -Math.min(rect.height * 0.34, viewportHeight * 0.42);
-    const rawExitProgress = clamp((exitStart - rect.bottom) / (exitStart - exitEnd), 0, 1);
-    const exitProgress = easeInOutCubic(rawExitProgress);
-    const depthBias = state.index * 12;
+    const entryStart = viewportHeight * HOME_PANEL_ENTRY_START_RATIO;
+    const entryEnd = viewportHeight * HOME_PANEL_ENTRY_END_RATIO;
+    const entryProgress = easeInOutCubic(getRangedProgress(rect.top, entryStart, entryEnd));
+    const exitStart = viewportHeight * HOME_PANEL_EXIT_START_RATIO;
+    const exitEnd = -Math.min(rect.height * 0.3, viewportHeight * 0.38);
+    const exitProgress = easeInOutCubic(getRangedProgress(rect.bottom, exitStart, exitEnd));
+    const depthBias = state.index * HOME_PANEL_DEPTH_STEP;
 
     const nextValues = {
-      x: direction * (((1 - entryProgress) * 360) - (exitProgress * 56)),
-      y: ((1 - entryProgress) * 96) - (exitProgress * 38),
-      z: -((1 - entryProgress) * 440) - (exitProgress * 118) - depthBias,
-      rotateY: direction * (((1 - entryProgress) * 42) - (exitProgress * 14)),
-      rotateX: ((1 - entryProgress) * 8.5) - (exitProgress * 3.5),
-      opacity: clamp(0.08 + (entryProgress * 0.92) - (exitProgress * 0.1), 0, 1),
-      blur: Math.max(((1 - entryProgress) * 0.95) + (exitProgress * 0.22), 0),
-      saturation: clamp(0.86 + (entryProgress * 0.18) - (exitProgress * 0.03), 0.84, 1.05),
+      x: direction * (((1 - entryProgress) * 400) - (exitProgress * 48)),
+      y: ((1 - entryProgress) * 108) - (exitProgress * 32),
+      z: -((1 - entryProgress) * 500) - (exitProgress * 104) - depthBias,
+      rotateY: direction * (((1 - entryProgress) * 38) - (exitProgress * 10)),
+      rotateX: ((1 - entryProgress) * 7.5) - (exitProgress * 2.8),
+      opacity: clamp(0.02 + (entryProgress * 0.98) - (exitProgress * 0.08), 0, 1),
+      blur: Math.max(((1 - entryProgress) * 0.7) + (exitProgress * 0.16), 0),
+      saturation: clamp(0.88 + (entryProgress * 0.14) - (exitProgress * 0.02), 0.88, 1.03),
     };
 
     assignHomePanelValues(target, nextValues);
