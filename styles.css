@@ -538,7 +538,7 @@ img {
   pointer-events: none;
   z-index: 2;
   background-image: url('assets/city-landing.png');
-  background-position: center bottom;
+  background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
 }
