@@ -1423,12 +1423,13 @@ img {
 }
 
 .services-page .pricing-card-body {
+  --pricing-card-gap: 14px;
   position: relative;
   z-index: 1;
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: 14px;
+  gap: var(--pricing-card-gap);
   padding: 20px;
 }
 
@@ -1587,7 +1588,7 @@ img {
   order: 4;
   position: relative;
   overflow: hidden;
-  margin-top: 0;
+  margin-top: calc(var(--pricing-card-gap) * -1);
   min-height: 52px;
   padding: 14px 18px;
   border-radius: 0 0 20px 20px;
