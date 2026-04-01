@@ -1055,9 +1055,14 @@ img {
   border-radius: 14px;
   background: var(--card-bg);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
+}
+
+.panel-list li > div {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .list-title {
@@ -1067,6 +1072,9 @@ img {
 
 .list-sub {
   font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .pill {
@@ -1095,12 +1103,16 @@ img {
 }
 
 .badge {
+  flex: 0 0 auto;
+  align-self: center;
+  min-width: 68px;
   background: var(--primary);
   color: #fff;
   padding: 6px 10px;
   border-radius: 10px;
   font-weight: 700;
   font-size: 12px;
+  text-align: center;
 }
 
 .section {
