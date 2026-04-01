@@ -46,18 +46,150 @@ const CURRENCY_PRICES = {
 };
 
 const HOME_PANEL_BREAKPOINT = 900;
+const HOME_PANEL_LERP = 0.15;
+const HOME_PANEL_SETTLE_EPSILON = 0.12;
+const HOME_PANEL_VISUAL_EPSILON = 0.002;
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+const lerp = (start, end, amount) => start + ((end - start) * amount);
 
-const easeOutCubic = (value) => 1 - ((1 - value) ** 3);
+const easeInOutCubic = (value) => (
+  value < 0.5
+    ? 4 * value * value * value
+    : 1 - (((-2 * value) + 2) ** 3) / 2
+);
 
 const getPanelSurface = (section) => section.querySelector('.home-stage__panel');
 
-const resetHomePanelState = () => {
-  homePanels.forEach((section) => {
-    const panel = getPanelSurface(section);
-    if (!panel) return;
+const createHomePanelValues = () => ({
+  x: 0,
+  y: 0,
+  z: 0,
+  rotateY: 0,
+  rotateX: 0,
+  opacity: 1,
+  blur: 0,
+  saturation: 1,
+});
 
+const homePanelStates = homePanels
+  .map((section, index) => {
+    const panel = getPanelSurface(section);
+    if (!panel) return null;
+
+    return {
+      index,
+      section,
+      panel,
+      current: createHomePanelValues(),
+      target: createHomePanelValues(),
+      isPrimed: false,
+    };
+  })
+  .filter(Boolean);
+
+let homePanelAnimationFrame = 0;
+let homePanelLastTimestamp = 0;
+let scrollStateFrame = 0;
+
+const applyHomePanelValues = (panel, values) => {
+  panel.style.setProperty('--panel-x', `${values.x.toFixed(2)}px`);
+  panel.style.setProperty('--panel-y', `${values.y.toFixed(2)}px`);
+  panel.style.setProperty('--panel-z', `${values.z.toFixed(2)}px`);
+  panel.style.setProperty('--panel-rotate-y', `${values.rotateY.toFixed(2)}deg`);
+  panel.style.setProperty('--panel-rotate-x', `${values.rotateX.toFixed(2)}deg`);
+  panel.style.setProperty('--panel-opacity', values.opacity.toFixed(3));
+  panel.style.setProperty('--panel-blur', `${values.blur.toFixed(2)}px`);
+  panel.style.setProperty('--panel-saturation', values.saturation.toFixed(3));
+};
+
+const assignHomePanelValues = (target, values) => {
+  target.x = values.x;
+  target.y = values.y;
+  target.z = values.z;
+  target.rotateY = values.rotateY;
+  target.rotateX = values.rotateX;
+  target.opacity = values.opacity;
+  target.blur = values.blur;
+  target.saturation = values.saturation;
+};
+
+const isHomePanelSettled = (current, target) => (
+  Math.abs(current.x - target.x) < HOME_PANEL_SETTLE_EPSILON
+  && Math.abs(current.y - target.y) < HOME_PANEL_SETTLE_EPSILON
+  && Math.abs(current.z - target.z) < HOME_PANEL_SETTLE_EPSILON
+  && Math.abs(current.rotateY - target.rotateY) < HOME_PANEL_SETTLE_EPSILON
+  && Math.abs(current.rotateX - target.rotateX) < HOME_PANEL_SETTLE_EPSILON
+  && Math.abs(current.opacity - target.opacity) < HOME_PANEL_VISUAL_EPSILON
+  && Math.abs(current.blur - target.blur) < HOME_PANEL_VISUAL_EPSILON
+  && Math.abs(current.saturation - target.saturation) < HOME_PANEL_VISUAL_EPSILON
+);
+
+const stopHomePanelAnimation = () => {
+  if (homePanelAnimationFrame) {
+    window.cancelAnimationFrame(homePanelAnimationFrame);
+    homePanelAnimationFrame = 0;
+  }
+
+  homePanelLastTimestamp = 0;
+};
+
+const runHomePanelAnimation = (timestamp) => {
+  homePanelAnimationFrame = 0;
+
+  const frameRatio = homePanelLastTimestamp
+    ? clamp((timestamp - homePanelLastTimestamp) / 16.67, 0.65, 2.2)
+    : 1;
+  const amount = 1 - ((1 - HOME_PANEL_LERP) ** frameRatio);
+  homePanelLastTimestamp = timestamp;
+
+  let needsAnotherFrame = false;
+
+  homePanelStates.forEach((state) => {
+    if (!state.isPrimed) return;
+
+    const { current, target, panel } = state;
+
+    current.x = lerp(current.x, target.x, amount);
+    current.y = lerp(current.y, target.y, amount);
+    current.z = lerp(current.z, target.z, amount);
+    current.rotateY = lerp(current.rotateY, target.rotateY, amount);
+    current.rotateX = lerp(current.rotateX, target.rotateX, amount);
+    current.opacity = lerp(current.opacity, target.opacity, amount);
+    current.blur = lerp(current.blur, target.blur, amount);
+    current.saturation = lerp(current.saturation, target.saturation, amount);
+
+    if (isHomePanelSettled(current, target)) {
+      assignHomePanelValues(current, target);
+    } else {
+      needsAnotherFrame = true;
+    }
+
+    applyHomePanelValues(panel, current);
+  });
+
+  if (needsAnotherFrame) {
+    homePanelAnimationFrame = window.requestAnimationFrame(runHomePanelAnimation);
+  } else {
+    homePanelLastTimestamp = 0;
+  }
+};
+
+const startHomePanelAnimation = () => {
+  if (homePanelAnimationFrame || !shouldAnimateHomePanels()) return;
+  homePanelAnimationFrame = window.requestAnimationFrame(runHomePanelAnimation);
+};
+
+const resetHomePanelState = () => {
+  stopHomePanelAnimation();
+
+  homePanelStates.forEach((state) => {
+    const defaults = createHomePanelValues();
+    assignHomePanelValues(state.current, defaults);
+    assignHomePanelValues(state.target, defaults);
+    state.isPrimed = false;
+
+    const { panel } = state;
     panel.style.removeProperty('--panel-x');
     panel.style.removeProperty('--panel-y');
     panel.style.removeProperty('--panel-z');
@@ -70,7 +202,7 @@ const resetHomePanelState = () => {
 };
 
 const shouldAnimateHomePanels = () => (
-  homePanels.length > 0
+  homePanelStates.length > 0
   && !reduceMotionQuery.matches
   && window.innerWidth > HOME_PANEL_BREAKPOINT
 );
@@ -229,7 +361,7 @@ const updateLandingIntroState = () => {
 };
 
 const updateHomePanelState = () => {
-  if (!homePanels.length) return;
+  if (!homePanelStates.length) return;
 
   if (!shouldAnimateHomePanels()) {
     resetHomePanelState();
@@ -237,38 +369,52 @@ const updateHomePanelState = () => {
   }
 
   const viewportHeight = Math.max(window.innerHeight, 1);
+  let shouldAnimate = false;
 
-  homePanels.forEach((section, index) => {
-    const panel = getPanelSurface(section);
-    if (!panel) return;
-
+  homePanelStates.forEach((state) => {
+    const { section, panel, current, target } = state;
     const rect = section.getBoundingClientRect();
     const direction = section.dataset.panelSide === 'left' ? -1 : 1;
-    const entryStart = viewportHeight * 0.96;
-    const entryEnd = viewportHeight * 0.18;
-    const entryProgress = clamp((entryStart - rect.top) / (entryStart - entryEnd), 0, 1);
-    const easedEntry = easeOutCubic(entryProgress);
-    const exitProgress = clamp((viewportHeight * 0.42 - rect.bottom) / (viewportHeight * 0.72), 0, 1);
-    const depthBias = index * 18;
+    const entryStart = viewportHeight * 0.68;
+    const entryEnd = viewportHeight * 0.14;
+    const rawEntryProgress = clamp((entryStart - rect.top) / (entryStart - entryEnd), 0, 1);
+    const entryProgress = easeInOutCubic(rawEntryProgress);
+    const exitStart = viewportHeight * 0.16;
+    const exitEnd = -Math.min(rect.height * 0.34, viewportHeight * 0.42);
+    const rawExitProgress = clamp((exitStart - rect.bottom) / (exitStart - exitEnd), 0, 1);
+    const exitProgress = easeInOutCubic(rawExitProgress);
+    const depthBias = state.index * 12;
 
-    const translateX = direction * (((1 - easedEntry) * 300) - (exitProgress * 44));
-    const translateY = ((1 - easedEntry) * 72) - (exitProgress * 34);
-    const translateZ = -((1 - easedEntry) * 360) - (exitProgress * 110) - depthBias;
-    const rotateY = direction * (((1 - easedEntry) * 36) - (exitProgress * 12));
-    const rotateX = ((1 - easedEntry) * 11) - (exitProgress * 4);
-    const opacity = clamp(0.2 + (easedEntry * 0.8) - (exitProgress * 0.08), 0, 1);
-    const blur = Math.max(((1 - easedEntry) * 1.8) + (exitProgress * 0.4), 0);
-    const saturation = Math.max(0.78 + (easedEntry * 0.28) - (exitProgress * 0.04), 0.8);
+    const nextValues = {
+      x: direction * (((1 - entryProgress) * 360) - (exitProgress * 56)),
+      y: ((1 - entryProgress) * 96) - (exitProgress * 38),
+      z: -((1 - entryProgress) * 440) - (exitProgress * 118) - depthBias,
+      rotateY: direction * (((1 - entryProgress) * 42) - (exitProgress * 14)),
+      rotateX: ((1 - entryProgress) * 8.5) - (exitProgress * 3.5),
+      opacity: clamp(0.08 + (entryProgress * 0.92) - (exitProgress * 0.1), 0, 1),
+      blur: Math.max(((1 - entryProgress) * 0.95) + (exitProgress * 0.22), 0),
+      saturation: clamp(0.86 + (entryProgress * 0.18) - (exitProgress * 0.03), 0.84, 1.05),
+    };
 
-    panel.style.setProperty('--panel-x', `${translateX.toFixed(2)}px`);
-    panel.style.setProperty('--panel-y', `${translateY.toFixed(2)}px`);
-    panel.style.setProperty('--panel-z', `${translateZ.toFixed(2)}px`);
-    panel.style.setProperty('--panel-rotate-y', `${rotateY.toFixed(2)}deg`);
-    panel.style.setProperty('--panel-rotate-x', `${rotateX.toFixed(2)}deg`);
-    panel.style.setProperty('--panel-opacity', opacity.toFixed(3));
-    panel.style.setProperty('--panel-blur', `${blur.toFixed(2)}px`);
-    panel.style.setProperty('--panel-saturation', saturation.toFixed(3));
+    assignHomePanelValues(target, nextValues);
+
+    if (!state.isPrimed) {
+      assignHomePanelValues(current, nextValues);
+      state.isPrimed = true;
+      applyHomePanelValues(panel, current);
+      return;
+    }
+
+    if (!isHomePanelSettled(current, target)) {
+      shouldAnimate = true;
+    }
   });
+
+  if (shouldAnimate) {
+    startHomePanelAnimation();
+  } else {
+    stopHomePanelAnimation();
+  }
 };
 
 const updateScrollState = () => {
@@ -277,14 +423,23 @@ const updateScrollState = () => {
   updateHomePanelState();
 };
 
-window.addEventListener('scroll', updateScrollState, { passive: true });
-window.addEventListener('resize', updateScrollState);
+const scheduleScrollState = () => {
+  if (scrollStateFrame) return;
+
+  scrollStateFrame = window.requestAnimationFrame(() => {
+    scrollStateFrame = 0;
+    updateScrollState();
+  });
+};
+
+window.addEventListener('scroll', scheduleScrollState, { passive: true });
+window.addEventListener('resize', scheduleScrollState);
 updateScrollState();
 
 if (typeof reduceMotionQuery.addEventListener === 'function') {
-  reduceMotionQuery.addEventListener('change', updateScrollState);
+  reduceMotionQuery.addEventListener('change', scheduleScrollState);
 } else if (typeof reduceMotionQuery.addListener === 'function') {
-  reduceMotionQuery.addListener(updateScrollState);
+  reduceMotionQuery.addListener(scheduleScrollState);
 }
 
 anchorLinks.forEach((link) => {

@@ -149,6 +149,13 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   font-family: 'Space Grotesk', 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -198,6 +205,7 @@ body {
     0 90px 140px rgba(15, 107, 255, 0.12);
   transform-style: preserve-3d;
   transform-origin: center center;
+  backface-visibility: hidden;
   opacity: var(--panel-opacity);
   filter: blur(var(--panel-blur)) saturate(var(--panel-saturation));
   transform:
