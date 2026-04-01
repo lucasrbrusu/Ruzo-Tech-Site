@@ -503,6 +503,10 @@ img {
   transition: opacity 0.12s linear;
   will-change: opacity;
   background-color: var(--landing-bg-color);
+  background-image: url('assets/city-landing.png');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .landing-intro::before {
@@ -510,7 +514,7 @@ img {
   position: absolute;
   inset: 0;
   background: var(--landing-overlay);
-  z-index: 0;
+  z-index: 1;
 }
 
 .landing-intro::after {
@@ -521,7 +525,7 @@ img {
   bottom: -1px;
   height: 180px;
   background: var(--landing-bottom-fade);
-  z-index: 3;
+  z-index: 2;
 }
 
 .landing-clouds {
@@ -529,18 +533,17 @@ img {
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  z-index: 1;
-}
-
-.landing-city {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 2;
-  background-image: url('assets/city-landing.png');
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  z-index: 0;
+  -webkit-mask-image: linear-gradient(#fff 0 0), url('assets/city-landing.png');
+  -webkit-mask-position: center center, center center;
+  -webkit-mask-size: 100% 100%, cover;
+  -webkit-mask-repeat: no-repeat, no-repeat;
+  -webkit-mask-composite: xor;
+  mask-image: linear-gradient(#fff 0 0), url('assets/city-landing.png');
+  mask-position: center center, center center;
+  mask-size: 100% 100%, cover;
+  mask-repeat: no-repeat, no-repeat;
+  mask-composite: exclude;
 }
 
 .landing-cloud {
@@ -646,7 +649,7 @@ img {
   position: absolute;
   top: 50%;
   left: clamp(24px, 6vw, 88px);
-  z-index: 4;
+  z-index: 3;
   width: min(36rem, 42vw);
   transform: translateY(-50%);
 }
@@ -706,7 +709,7 @@ img {
   left: 50%;
   bottom: clamp(32px, 5vh, 52px);
   transform: translateX(-50%);
-  z-index: 4;
+  z-index: 3;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
