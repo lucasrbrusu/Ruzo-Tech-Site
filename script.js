@@ -7,6 +7,7 @@ const priceLines = document.querySelectorAll('[data-price-gbp]');
 const anchorLinks = document.querySelectorAll('a[href^="#"]');
 const landingIntro = document.querySelector('.landing-intro');
 const homeHero = document.querySelector('.hero');
+const homePanels = Array.from(document.querySelectorAll('[data-home-panel]'));
 const landingPromoLines = document.querySelectorAll('[data-landing-line]');
 const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -43,6 +44,36 @@ const CURRENCY_PRICES = {
     'unlimited-care': 150,
   },
 };
+
+const HOME_PANEL_BREAKPOINT = 900;
+
+const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+
+const easeOutCubic = (value) => 1 - ((1 - value) ** 3);
+
+const getPanelSurface = (section) => section.querySelector('.home-stage__panel');
+
+const resetHomePanelState = () => {
+  homePanels.forEach((section) => {
+    const panel = getPanelSurface(section);
+    if (!panel) return;
+
+    panel.style.removeProperty('--panel-x');
+    panel.style.removeProperty('--panel-y');
+    panel.style.removeProperty('--panel-z');
+    panel.style.removeProperty('--panel-rotate-y');
+    panel.style.removeProperty('--panel-rotate-x');
+    panel.style.removeProperty('--panel-opacity');
+    panel.style.removeProperty('--panel-blur');
+    panel.style.removeProperty('--panel-saturation');
+  });
+};
+
+const shouldAnimateHomePanels = () => (
+  homePanels.length > 0
+  && !reduceMotionQuery.matches
+  && window.innerWidth > HOME_PANEL_BREAKPOINT
+);
 
 const getStoredTheme = () => {
   try {
@@ -192,19 +223,69 @@ const updateLandingIntroState = () => {
   if (!landingIntro) return;
 
   const fadeDistance = Math.max(landingIntro.offsetHeight * 0.7, 1);
-  const progress = Math.min(Math.max(window.scrollY, 0) / fadeDistance, 1);
+  const progress = clamp(window.scrollY / fadeDistance, 0, 1);
   landingIntro.style.opacity = String(1 - progress);
   if (homeHero) homeHero.style.opacity = String(progress);
+};
+
+const updateHomePanelState = () => {
+  if (!homePanels.length) return;
+
+  if (!shouldAnimateHomePanels()) {
+    resetHomePanelState();
+    return;
+  }
+
+  const viewportHeight = Math.max(window.innerHeight, 1);
+
+  homePanels.forEach((section, index) => {
+    const panel = getPanelSurface(section);
+    if (!panel) return;
+
+    const rect = section.getBoundingClientRect();
+    const direction = section.dataset.panelSide === 'left' ? -1 : 1;
+    const entryStart = viewportHeight * 0.96;
+    const entryEnd = viewportHeight * 0.18;
+    const entryProgress = clamp((entryStart - rect.top) / (entryStart - entryEnd), 0, 1);
+    const easedEntry = easeOutCubic(entryProgress);
+    const exitProgress = clamp((viewportHeight * 0.42 - rect.bottom) / (viewportHeight * 0.72), 0, 1);
+    const depthBias = index * 18;
+
+    const translateX = direction * (((1 - easedEntry) * 300) - (exitProgress * 44));
+    const translateY = ((1 - easedEntry) * 72) - (exitProgress * 34);
+    const translateZ = -((1 - easedEntry) * 360) - (exitProgress * 110) - depthBias;
+    const rotateY = direction * (((1 - easedEntry) * 36) - (exitProgress * 12));
+    const rotateX = ((1 - easedEntry) * 11) - (exitProgress * 4);
+    const opacity = clamp(0.2 + (easedEntry * 0.8) - (exitProgress * 0.08), 0, 1);
+    const blur = Math.max(((1 - easedEntry) * 1.8) + (exitProgress * 0.4), 0);
+    const saturation = Math.max(0.78 + (easedEntry * 0.28) - (exitProgress * 0.04), 0.8);
+
+    panel.style.setProperty('--panel-x', `${translateX.toFixed(2)}px`);
+    panel.style.setProperty('--panel-y', `${translateY.toFixed(2)}px`);
+    panel.style.setProperty('--panel-z', `${translateZ.toFixed(2)}px`);
+    panel.style.setProperty('--panel-rotate-y', `${rotateY.toFixed(2)}deg`);
+    panel.style.setProperty('--panel-rotate-x', `${rotateX.toFixed(2)}deg`);
+    panel.style.setProperty('--panel-opacity', opacity.toFixed(3));
+    panel.style.setProperty('--panel-blur', `${blur.toFixed(2)}px`);
+    panel.style.setProperty('--panel-saturation', saturation.toFixed(3));
+  });
 };
 
 const updateScrollState = () => {
   updateHeaderState();
   updateLandingIntroState();
+  updateHomePanelState();
 };
 
-window.addEventListener('scroll', updateScrollState);
-window.addEventListener('resize', updateLandingIntroState);
+window.addEventListener('scroll', updateScrollState, { passive: true });
+window.addEventListener('resize', updateScrollState);
 updateScrollState();
+
+if (typeof reduceMotionQuery.addEventListener === 'function') {
+  reduceMotionQuery.addEventListener('change', updateScrollState);
+} else if (typeof reduceMotionQuery.addListener === 'function') {
+  reduceMotionQuery.addListener(updateScrollState);
+}
 
 anchorLinks.forEach((link) => {
   const targetId = link.getAttribute('href');

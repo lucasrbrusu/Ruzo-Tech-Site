@@ -162,6 +162,178 @@ body {
   scroll-margin-top: 88px;
 }
 
+.home-stage {
+  position: relative;
+  padding: 28px 0 72px;
+  perspective: 2200px;
+  perspective-origin: 50% 18vh;
+  transform-style: preserve-3d;
+  isolation: isolate;
+}
+
+.home-stage__section {
+  position: relative;
+  width: min(1380px, calc(100% - 32px));
+  margin: 0 auto 40px;
+  scroll-margin-top: 110px;
+}
+
+.home-stage__panel {
+  --panel-x: 0px;
+  --panel-y: 0px;
+  --panel-z: 0px;
+  --panel-rotate-y: 0deg;
+  --panel-rotate-x: 0deg;
+  --panel-opacity: 1;
+  --panel-blur: 0px;
+  --panel-saturation: 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 32px;
+  border: 1px solid rgba(15, 107, 255, 0.14);
+  background: var(--card-bg-strong);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 32px 80px rgba(4, 12, 30, 0.18),
+    0 90px 140px rgba(15, 107, 255, 0.12);
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  opacity: var(--panel-opacity);
+  filter: blur(var(--panel-blur)) saturate(var(--panel-saturation));
+  transform:
+    translate3d(var(--panel-x), var(--panel-y), var(--panel-z))
+    rotateY(var(--panel-rotate-y))
+    rotateX(var(--panel-rotate-x));
+  will-change: transform, opacity, filter;
+  transition: box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.home-stage__panel > .container {
+  position: relative;
+  z-index: 1;
+  transform-style: preserve-3d;
+}
+
+.home-stage__section.section {
+  padding: 0;
+  background: none;
+}
+
+.home-stage__section.section .home-stage__panel {
+  padding: 96px 0;
+}
+
+.home-stage__section.surface {
+  border: 0;
+  background: none;
+}
+
+.home-stage__section.surface .home-stage__panel {
+  background: var(--surface);
+}
+
+.home-stage__section#projects .home-stage__panel {
+  background:
+    radial-gradient(circle at top right, rgba(15, 107, 255, 0.16), rgba(15, 107, 255, 0) 34%),
+    linear-gradient(180deg, rgba(15, 107, 255, 0.08) 0%, rgba(15, 107, 255, 0.025) 26%, var(--page-bg) 78%);
+}
+
+[data-theme='dark'] .home-stage__section#projects .home-stage__panel {
+  background:
+    radial-gradient(circle at top right, rgba(127, 181, 255, 0.16), rgba(127, 181, 255, 0) 34%),
+    linear-gradient(180deg, rgba(11, 33, 66, 0.92) 0%, rgba(7, 24, 47, 0.86) 32%, rgba(7, 24, 47, 0.98) 100%);
+}
+
+.home-stage__section.hero {
+  opacity: 1;
+  transition: opacity 0.12s linear;
+  will-change: opacity;
+}
+
+.home-stage__section.hero .home-stage__panel {
+  padding: 140px 0 110px;
+  background: var(--hero-bg);
+}
+
+.home-stage__section.hero .home-stage__panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--hero-overlay);
+  z-index: 0;
+}
+
+.home-stage__section.hero .home-stage__panel::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 180px;
+  background: var(--hero-bottom-fade);
+  z-index: 0;
+}
+
+.home-stage__section.cta {
+  background: none;
+}
+
+.home-stage__section.cta .home-stage__panel {
+  background: var(--cta-bg);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 36px 90px rgba(0, 0, 0, 0.34),
+    0 90px 150px rgba(6, 13, 27, 0.22);
+}
+
+.home-stage__section .hero-grid,
+.home-stage__section .process-grid,
+.home-stage__section .project-grid,
+.home-stage__section .cta-content,
+.home-stage__section .hero-copy,
+.home-stage__section .hero-visual,
+.home-stage__section .section-header,
+.home-stage__section .cta-content > div,
+.home-stage__section .glass-panel,
+.home-stage__section .stat,
+.home-stage__section .process-card,
+.home-stage__section .project-card,
+.home-stage__section .cta-card,
+.home-stage__section .panel-list li,
+.home-stage__section .project-thumb,
+.home-stage__section .project-body,
+.home-stage__section .step-number,
+.home-stage__section .panel-header,
+.home-stage__section .panel-footer {
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.home-stage__section .section-header,
+.home-stage__section .hero-copy,
+.home-stage__section .hero-visual,
+.home-stage__section .cta-content > div:first-child {
+  transform: translateZ(52px);
+}
+
+.home-stage__section .glass-panel,
+.home-stage__section .stat,
+.home-stage__section .process-card,
+.home-stage__section .project-card,
+.home-stage__section .cta-card {
+  transform: translateZ(96px);
+}
+
+.home-stage__section .panel-list li,
+.home-stage__section .project-thumb,
+.home-stage__section .project-body,
+.home-stage__section .step-number,
+.home-stage__section .panel-header,
+.home-stage__section .panel-footer {
+  transform: translateZ(132px);
+}
+
 h1,
 h2,
 h3,
@@ -777,31 +949,6 @@ img {
 
 .hero {
   position: relative;
-  padding: 140px 0 110px;
-  overflow: hidden;
-  opacity: 1;
-  transition: opacity 0.12s linear;
-  will-change: opacity;
-  background: var(--hero-bg);
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--hero-overlay);
-  z-index: 0;
-}
-
-.hero::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  height: 180px;
-  background: var(--hero-bottom-fade);
-  z-index: 0;
 }
 
 .hero-grid {
@@ -1843,11 +1990,11 @@ img {
     grid-template-columns: 1fr;
   }
 
-  .hero {
+  .home-stage__section.hero .home-stage__panel {
     padding: 120px 0 80px;
   }
 
-  .hero::after {
+  .home-stage__section.hero .home-stage__panel::after {
     height: 140px;
   }
 
@@ -1889,6 +2036,46 @@ img {
 }
 
 @media (max-width: 900px) {
+  .home-stage {
+    padding: 16px 0 40px;
+    perspective: none;
+  }
+
+  .home-stage__section {
+    width: calc(100% - 16px);
+    margin-bottom: 24px;
+    scroll-margin-top: 92px;
+  }
+
+  .home-stage__panel {
+    border-radius: 24px;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+
+  .home-stage__section.section .home-stage__panel {
+    padding: 72px 0;
+  }
+
+  .home-stage__section .section-header,
+  .home-stage__section .hero-copy,
+  .home-stage__section .hero-visual,
+  .home-stage__section .cta-content > div:first-child,
+  .home-stage__section .glass-panel,
+  .home-stage__section .stat,
+  .home-stage__section .process-card,
+  .home-stage__section .project-card,
+  .home-stage__section .cta-card,
+  .home-stage__section .panel-list li,
+  .home-stage__section .project-thumb,
+  .home-stage__section .project-body,
+  .home-stage__section .step-number,
+  .home-stage__section .panel-header,
+  .home-stage__section .panel-footer {
+    transform: none;
+  }
+
   .nav-bar {
     display: flex;
     justify-content: space-between;
@@ -2026,6 +2213,15 @@ img {
     scroll-margin-top: 76px;
   }
 
+  .home-stage__section {
+    width: calc(100% - 12px);
+    margin-bottom: 18px;
+  }
+
+  .home-stage__panel {
+    border-radius: 20px;
+  }
+
   .hero-grid {
     scroll-margin-top: 76px;
   }
@@ -2054,11 +2250,11 @@ img {
     padding: 12px 0;
   }
 
-  .hero {
+  .home-stage__section.hero .home-stage__panel {
     padding: 110px 0 64px;
   }
 
-  .hero::after {
+  .home-stage__section.hero .home-stage__panel::after {
     height: 110px;
   }
 
@@ -2128,6 +2324,7 @@ img {
 @media (prefers-reduced-motion: reduce) {
   .landing-intro,
   .hero,
+  .home-stage__panel,
   .discover-circle,
   .landing-cloud,
   .site-header,
@@ -2140,5 +2337,29 @@ img {
   .discover-circle,
   .landing-cloud {
     animation: none;
+  }
+
+  .home-stage__panel {
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+
+  .home-stage__section .section-header,
+  .home-stage__section .hero-copy,
+  .home-stage__section .hero-visual,
+  .home-stage__section .cta-content > div:first-child,
+  .home-stage__section .glass-panel,
+  .home-stage__section .stat,
+  .home-stage__section .process-card,
+  .home-stage__section .project-card,
+  .home-stage__section .cta-card,
+  .home-stage__section .panel-list li,
+  .home-stage__section .project-thumb,
+  .home-stage__section .project-body,
+  .home-stage__section .step-number,
+  .home-stage__section .panel-header,
+  .home-stage__section .panel-footer {
+    transform: none;
   }
 }
