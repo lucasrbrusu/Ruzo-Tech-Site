@@ -452,6 +452,23 @@ if (typeof reduceMotionQuery.addEventListener === 'function') {
   reduceMotionQuery.addListener(scheduleScrollState);
 }
 
+const getElementDocumentTop = (element) => {
+  let top = 0;
+  let current = element;
+
+  while (current) {
+    top += current.offsetTop || 0;
+    current = current.offsetParent;
+  }
+
+  return top;
+};
+
+const getAnchorScrollOffset = () => {
+  const headerHeight = header?.offsetHeight || 0;
+  return headerHeight + 12;
+};
+
 anchorLinks.forEach((link) => {
   const targetId = link.getAttribute('href');
   if (!targetId || targetId === '#') return;
@@ -459,8 +476,15 @@ anchorLinks.forEach((link) => {
   link.addEventListener('click', (event) => {
     const target = document.querySelector(targetId);
     if (!target) return;
+
     event.preventDefault();
-    target.scrollIntoView({ behavior: reduceMotionQuery.matches ? 'auto' : 'smooth', block: 'start' });
+
+    const top = Math.max(getElementDocumentTop(target) - getAnchorScrollOffset(), 0);
+    window.scrollTo({
+      top,
+      left: 0,
+      behavior: reduceMotionQuery.matches ? 'auto' : 'smooth',
+    });
   });
 });
 
