@@ -1054,10 +1054,10 @@ img {
   border: 1px solid var(--border);
   border-radius: 14px;
   background: var(--card-bg);
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  column-gap: 18px;
 }
 
 .panel-list li > div {
@@ -1106,7 +1106,7 @@ img {
 .badge {
   flex: 0 0 auto;
   align-self: center;
-  min-width: 68px;
+  min-width: 86px;
   background: var(--primary);
   color: #fff;
   padding: 6px 10px;
@@ -1114,6 +1114,25 @@ img {
   font-weight: 700;
   font-size: 12px;
   text-align: center;
+}
+
+.panel-header > div,
+.panel-footer > div {
+  min-width: 0;
+}
+
+.panel-footer > div {
+  flex: 1 1 auto;
+}
+
+.panel-footer .list-sub {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+.panel-footer .btn.small {
+  flex: 0 0 auto;
 }
 
 .section {
