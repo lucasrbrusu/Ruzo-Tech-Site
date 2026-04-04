@@ -1,18 +1,24 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
 let isRegistered = false;
 
-export function useGsapPlugins() {
-  useEffect(() => {
-    if (isRegistered) return;
+export function ensureGsapPlugins() {
+  if (isRegistered || typeof window === 'undefined') return;
 
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-    isRegistered = true;
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+  isRegistered = true;
+}
+
+ensureGsapPlugins();
+
+export function useGsapPlugins() {
+  useLayoutEffect(() => {
+    ensureGsapPlugins();
   }, []);
 }
 
