@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZDECN1F54"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-WZDECN1F54');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ruzo Tech | Request a Package</title>
+  <meta name="description" content="Request a website development package from Ruzo Tech." />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Ruzo Tech | Request a Package" />
+  <meta property="og:description" content="Request a website development package from Ruzo Tech." />
+  <meta property="og:image" content="assets/logo.png" />
+  <meta property="og:locale" content="en_GB" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ruzo Tech | Request a Package" />
+  <meta name="twitter:description" content="Request a website development package from Ruzo Tech." />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    (() => {
+      const themeKey = 'ruzotech-theme';
+      try {
+        const storedTheme = localStorage.getItem(themeKey);
+        const theme = storedTheme === 'dark' || storedTheme === 'light' ? storedTheme : 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-bar">
+      <a class="brand brand-link" href="index.html">
+        <img class="logo-img" src="assets/logo-transparent.png" alt="Ruzo Tech logo" />
+        <div class="logo-type">
+          <span class="logo-name">Ruzo Tech</span>
+          <span class="logo-tag">Web & App Studio</span>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="about.html">About us</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn primary small" href="index.html#contact">Contact</a>
+        <button class="theme-toggle" type="button" aria-label="Switch color mode" aria-pressed="false">
+          <span class="theme-toggle__icon" aria-hidden="true">☾</span>
+          <span class="theme-toggle__text">Dark</span>
+        </button>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="top">
+      <div class="container">
+        <a class="back-link btn primary small" href="services.html" aria-label="Back to services">
+          <span class="back-arrow">&larr;</span>
+          <span class="back-text">Back to services</span>
+        </a>
+        <div class="section-header">
+          <p class="eyebrow">Request</p>
+          <h1>Tell us what you need</h1>
+          <p class="section-sub">We’ll confirm scope and timeline based on your selection.</p>
+        </div>
+
+        <div class="request-wrap">
+          <div class="request-summary">
+            <p class="eyebrow">Selected package</p>
+            <div class="summary-item">
+              <span>Development type</span>
+              <span id="summary-type">Development Packages</span>
+            </div>
+            <div class="summary-item">
+              <span>Package</span>
+              <span id="summary-package">Landing Page</span>
+            </div>
+            <p class="request-note">Adjust the details below and submit so we can contact you with next steps.</p>
+          </div>
+
+          <div class="request-form">
+            <form class="contact-form" action="https://formspree.io/f/mjgvwypo" method="POST">
+              <input type="hidden" id="field-subject" name="_subject" />
+              <label>
+                Development type
+                <select id="field-type-select" name="type" required></select>
+              </label>
+              <label>
+                Package
+                <select id="field-package-select" name="package" required></select>
+              </label>
+              <label>
+                Description
+                <textarea id="field-description" name="description" placeholder="Describe what you’d like in your website" required></textarea>
+              </label>
+              <label>
+                Email
+                <input type="email" id="field-email" name="email" placeholder="you@example.com" required />
+              </label>
+              <label>
+                Phone
+                <input type="tel" id="field-phone" name="phone" placeholder="+44..." />
+              </label>
+              <label class="terms-check">
+                <input type="checkbox" name="terms_agree" required />
+                <span>I agree to the <a class="terms-link" href="terms.html" target="_blank" rel="noopener">Terms of Service</a> and <a class="terms-link" href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a></span>
+              </label>
+              <button type="submit" class="btn primary full">Send request</button>
+              <p class="form-note">We respond within one business day.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="brand footer-brand brand-link" href="index.html">
+          <img class="logo-img" src="assets/logo-transparent.png" alt="Ruzo Tech logo" />
+          <div class="logo-type">
+            <span class="logo-name">Ruzo Tech</span>
+            <span class="logo-tag">Websites & Apps</span>
+          </div>
+        </a>
+        <p class="footer-copy">We design and ship digital products and build conversion-driven websites for clients.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <p class="footer-title">Explore</p>
+          <a href="services.html">Services</a>
+          <a href="about.html">About us</a>
+          <a href="index.html#projects">Work</a>
+        </div>
+        <div>
+          <p class="footer-title">Contact</p>
+          <a href="mailto:contact@ruzotech.com">contact@ruzotech.com</a>
+          <a href="index.html#contact">Book a call</a>
+        </div>
+        <div>
+          <p class="footer-title">Legal</p>
+          <a href="terms.html">Terms of Service</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="cookies.html">Cookie Policy</a>
+        </div>
+      </div>
+      <div class="footer-meta">
+        <p>Based worldwide. Working with founders and product teams.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const params = new URLSearchParams(window.location.search);
+      const defaultType = 'Development Packages';
+      const defaultPackage = 'Landing Page';
+      const typeFromQuery = params.get('type') || defaultType;
+      const pkgFromQuery = params.get('package');
+      const summaryType = document.getElementById('summary-type');
+      const summaryPackage = document.getElementById('summary-package');
+      const typeSelect = document.getElementById('field-type-select');
+      const packageSelect = document.getElementById('field-package-select');
+      const fieldSubject = document.getElementById('field-subject');
+
+      const developmentPackages = ['Landing Page', 'Business', 'Enterprise'];
+
+      const packageOptions = {
+        'Development Packages': developmentPackages,
+        Maintenance: ['Basic Care', 'CarePlus', 'Ultimate Growth', 'Unlimited Care'],
+      };
+
+      const typeAliases = {
+        'Development package': 'Development Packages',
+        'Promotion page': 'Development Packages',
+        'Business site': 'Development Packages',
+        'Complex Enterprise Site': 'Development Packages',
+        'Landing page': 'Development Packages',
+        'Brochure site (up to 8 pages)': 'Development Packages',
+        'Brochure site': 'Development Packages',
+        'Business site (up to 8 pages)': 'Development Packages',
+        'Advanced business site': 'Development Packages',
+      };
+
+      const packageAliases = {
+        'Promotion page': {
+          Basic: 'Landing Page',
+          Advanced: 'Landing Page',
+        },
+        'Business site': {
+          Starter: 'Business',
+          Advanced: 'Business',
+          Pro: 'Business',
+        },
+        'Complex Enterprise Site': {
+          'Basic Enterprise': 'Enterprise',
+          'Advanced Enterprise': 'Enterprise',
+          'Super Enterprise': 'Enterprise',
+        },
+      };
+
+      const normalizedType = typeAliases[typeFromQuery] || typeFromQuery;
+      const typeOptions = Object.keys(packageOptions);
+      let selectedType = packageOptions[normalizedType] ? normalizedType : defaultType;
+
+      const getAvailablePackages = (type) => packageOptions[type] || packageOptions[defaultType];
+
+      const setSubject = (pkg) => {
+        if (fieldSubject) fieldSubject.value = `Dev Request - ${selectedType} - ${pkg}`;
+      };
+
+      const setSummary = (pkg) => {
+        if (summaryType) summaryType.textContent = selectedType;
+        if (summaryPackage) summaryPackage.textContent = pkg;
+      };
+
+      const populatePackageSelect = (preferredPackage) => {
+        const packages = getAvailablePackages(selectedType);
+        if (!packageSelect) return packages[0];
+
+        packageSelect.innerHTML = '';
+        packages.forEach((option) => {
+          const opt = document.createElement('option');
+          opt.value = option;
+          opt.textContent = option;
+          packageSelect.appendChild(opt);
+        });
+
+        const selectedPackage =
+          preferredPackage && packages.includes(preferredPackage)
+            ? preferredPackage
+            : packages[0];
+
+        packageSelect.value = selectedPackage;
+        return selectedPackage;
+      };
+
+      if (typeSelect) {
+        typeOptions.forEach((option) => {
+          const opt = document.createElement('option');
+          opt.value = option;
+          opt.textContent = option;
+          typeSelect.appendChild(opt);
+        });
+        typeSelect.value = selectedType;
+
+        typeSelect.addEventListener('change', () => {
+          selectedType = typeSelect.value;
+          const selectedPackage = populatePackageSelect(packageSelect ? packageSelect.value : undefined);
+          setSummary(selectedPackage);
+          setSubject(selectedPackage);
+        });
+      }
+
+      const aliasedPackage = packageAliases[typeFromQuery]?.[pkgFromQuery];
+      const initialPackage = populatePackageSelect(
+        pkgFromQuery && getAvailablePackages(selectedType).includes(pkgFromQuery)
+          ? pkgFromQuery
+          : aliasedPackage || defaultPackage
+      );
+
+      if (packageSelect) {
+        packageSelect.addEventListener('change', () => {
+          const currentPackage = packageSelect.value;
+          setSummary(currentPackage);
+          setSubject(currentPackage);
+        });
+      }
+
+      setSummary(initialPackage);
+      setSubject(initialPackage);
+    })();
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
